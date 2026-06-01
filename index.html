@@ -8,13 +8,13 @@
 <!-- #LLM-generated — v1 draft: catalogue + enquire (no checkout). Loads gothic fonts from Google Fonts; falls back to system serif offline. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:wght@400;500&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root{
     --cream:#0B090C; --paper:#15121A; --ink:#E9E2D4; --muted:#938A82;
     --line:#2A2430; --brass:#B8965A; --oxblood:#8A2433; --good:#6E9079;
     --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 40px rgba(0,0,0,.55);
-    --display:'UnifrakturCook','Cormorant Garamond',Georgia,serif;
+    --display:'Cinzel','Marcellus SC','Cormorant Garamond',Georgia,serif;
     --serif:'Cormorant Garamond','Iowan Old Style',Palatino,Georgia,'Times New Roman',serif;
     --sans:'EB Garamond',ui-serif,Georgia,'Times New Roman',serif;
   }
@@ -32,8 +32,9 @@
   header{position:sticky;top:0;z-index:20;background:rgba(11,9,12,.82);
          backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .brand{font-family:var(--display);font-size:30px;letter-spacing:.02em;text-decoration:none;
-         color:var(--ink);display:flex;align-items:center;gap:12px;line-height:1}
+  .brand{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.16em;
+         text-transform:uppercase;text-decoration:none;color:var(--ink);
+         display:flex;align-items:center;gap:14px;line-height:1}
   .brand .mark{width:26px;height:26px;border-radius:50%;
        background:radial-gradient(circle at 50% 38%,var(--brass) 0 28%,transparent 30%),
                   conic-gradient(from 210deg,var(--oxblood),var(--brass),var(--oxblood));
@@ -41,7 +42,7 @@
   nav a{font-size:14px;letter-spacing:.04em;text-decoration:none;color:var(--muted);
         margin-left:26px;padding:6px 0;border-bottom:2px solid transparent}
   nav a:hover,nav a.active{color:var(--ink);border-color:var(--brass)}
-  @media(max-width:560px){nav a{margin-left:16px;font-size:13px}.brand{font-size:18px}}
+  @media(max-width:560px){nav a{margin-left:16px;font-size:13px}.brand{font-size:15px;letter-spacing:.12em}}
 
   /* Hero */
   .hero{padding:96px 0 72px;text-align:center;border-bottom:1px solid var(--line);position:relative;
@@ -147,7 +148,7 @@
 <footer>
   <div class="wrap">
     <span>Dank Omphalos — alters &amp; original art</span>
-    <span>Enquiries: <a href="mailto:hello@dankomphalos.com">hello@dankomphalos.com</a></span>
+    <span><a href="https://www.instagram.com/dankomphalos/" target="_blank" rel="noopener">@dankomphalos</a> &nbsp;·&nbsp; <a href="mailto:hello@dankomphalos.com">hello@dankomphalos.com</a></span>
   </div>
 </footer>
 <script>
