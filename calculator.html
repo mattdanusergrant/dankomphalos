@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dank Omphalos — Calculator</title>
+<meta name="description" content="Tune the example: bulk discount vs future cut discount. Totals update live." />
+<!-- #LLM-generated — artist calculator. Mobile-first. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0B090C; --paper:#15121A; --paper2:#1A1422; --ink:#E9E2D4; --muted:#938A82;
+    --line:#2A2430; --brass:#B8965A; --oxblood:#8A2433;
+    --display:'Cinzel','Marcellus SC','Cormorant Garamond',Georgia,serif;
+    --serif:'Cormorant Garamond','Iowan Old Style',Palatino,Georgia,serif;
+    --body:'EB Garamond',ui-serif,Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55;
+       -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+       background-image:
+         radial-gradient(900px 480px at 50% -8%,rgba(138,36,51,.18),transparent 60%),
+         radial-gradient(700px 420px at 100% 110%,rgba(184,150,90,.08),transparent 55%)}
+  a{color:inherit}
+  .wrap{max-width:620px;margin:0 auto;padding:30px 22px 60px}
+
+  /* brand */
+  .brand{display:flex;align-items:center;justify-content:center;gap:14px;padding:8px 0 4px}
+  .brand .mark{width:22px;height:22px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%,var(--brass) 0 30%,transparent 32%),
+               radial-gradient(circle at 60% 80%,var(--oxblood),#3A1018 70%);
+    box-shadow:inset 0 0 0 1px rgba(184,150,90,.55),0 0 12px rgba(184,150,90,.25)}
+  .brand .word{font-family:var(--display);font-weight:700;font-size:21px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--ink);line-height:1}
+
+  .kicker{text-align:center;font-family:var(--serif);font-style:italic;font-size:18px;
+    color:var(--brass);margin:18px 0 0;letter-spacing:.02em}
+  .kicker-rule{width:60px;height:1px;background:var(--brass);opacity:.55;border:0;margin:14px auto 26px}
+
+  /* card */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:3px;
+    padding:32px 24px 28px;margin:0 0 24px}
+  .card--featured{border-color:rgba(184,150,90,.5)}
+  .card .num{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--brass);
+    margin:0;text-align:center;letter-spacing:.04em}
+  .card h2{font-family:var(--display);font-weight:700;font-size:24px;
+    text-transform:uppercase;letter-spacing:.18em;text-align:center;
+    margin:8px 0 0;color:var(--ink)}
+  .card-rule{width:80px;height:1px;background:rgba(184,150,90,.45);border:0;margin:14px auto 20px}
+
+  .deck{text-align:center;font-size:20px;color:var(--muted);letter-spacing:.04em;margin:0 0 16px}
+
+  .div{border:0;border-top:1px solid var(--line);margin:18px 0}
+  .div--cashout{border-top:1px dashed rgba(184,150,90,.35);margin:22px 0 18px}
+
+  .setting{display:flex;justify-content:space-between;align-items:baseline;
+    font-size:15px;color:var(--muted);letter-spacing:.04em;margin:6px 0;padding:0 2px;
+    text-transform:uppercase;font-family:var(--display);font-weight:600}
+  .setting .v{color:var(--ink);font-family:var(--body);font-weight:400;font-size:18px;text-transform:none;letter-spacing:0}
+
+  .row{display:flex;justify-content:space-between;align-items:baseline;padding:12px 4px;
+    border-bottom:1px dashed var(--line)}
+  .row:last-of-type{border-bottom:none}
+  .row .lbl{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.22em;
+    color:var(--muted);text-transform:uppercase}
+  .row .amt{font-family:var(--serif);font-size:34px;color:var(--ink);font-weight:600;line-height:1}
+  .row .right{text-align:right}
+  .row .formula{display:block;font-size:13px;color:var(--muted);font-style:italic;
+    margin-top:4px;letter-spacing:.04em}
+  .row--total{background:var(--paper2);margin:16px -8px 0;padding:18px 12px;border-radius:2px;border:0}
+  .row--total .lbl{color:var(--brass);font-weight:700}
+  .row--total .amt{font-size:44px;font-weight:700}
+
+  .tag{text-align:center;font-family:var(--serif);font-style:italic;font-size:18px;
+    color:var(--ink);margin:18px 0 0}
+
+  .cashout-title{text-align:center;font-family:var(--display);font-size:13px;
+    letter-spacing:.28em;color:var(--brass);margin:0;font-weight:700}
+  .cashout-body{text-align:center;font-family:var(--serif);font-style:italic;font-size:16px;
+    color:var(--ink);margin:10px 0 0;line-height:1.5}
+
+  /* editable number inputs */
+  .num-in{display:inline-block;background:transparent;border:0;
+    border-bottom:1px solid rgba(184,150,90,.55);
+    color:var(--ink);font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;
+    text-align:center;padding:0 3px 1px;min-width:2.2em;line-height:1.1;
+    -webkit-appearance:none;-moz-appearance:textfield;appearance:none;
+    transition:.15s;-webkit-tap-highlight-color:transparent}
+  .num-in::-webkit-inner-spin-button,.num-in::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .num-in:focus{outline:0;border-bottom-color:var(--brass);background:rgba(184,150,90,.06)}
+  .num-in.wide{min-width:3.4em}
+
+  .foot{margin:32px auto 0;padding-top:22px;border-top:1px solid var(--line);
+    text-align:center;color:var(--muted);font-size:14px;letter-spacing:.04em}
+  .foot a{color:var(--brass);text-decoration:none;border-bottom:1px solid transparent}
+  .foot a:hover{border-color:var(--brass)}
+  .foot .url{display:block;margin-top:10px;font-family:var(--display);letter-spacing:.18em}
+
+  @media (max-width:380px){
+    .brand .word{font-size:18px}
+    .card h2{font-size:21px;letter-spacing:.14em}
+    .row .amt{font-size:30px}
+    .row--total .amt{font-size:38px}
+    .card{padding:26px 18px 22px}
+    .deck{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="word">Dank Omphalos</span>
+  </div>
+
+  <p class="kicker">Tune any number &mdash; totals update live</p>
+  <hr class="kicker-rule" />
+
+  <!-- ========== I — BULK DISCOUNT ========== -->
+  <section class="card">
+    <p class="num">I.</p>
+    <h2>Bulk Discount</h2>
+    <hr class="card-rule" />
+
+    <p class="deck">
+      <input class="num-in" id="bulk-deck" type="number" inputmode="numeric" min="1" max="999" value="10" aria-label="bulk deck size" />
+      alters &times; $<input class="num-in" id="bulk-rate" type="number" inputmode="numeric" min="0" max="999999" value="80" aria-label="bulk per-alter rate" />
+    </p>
+
+    <div class="row row--total">
+      <span class="lbl">Total</span>
+      <span class="amt" id="bulk-total">$800</span>
+    </div>
+
+    <p class="tag">Bigger upfront. Paid once.</p>
+  </section>
+
+  <!-- ========== II — FUTURE CUT DISCOUNT ========== -->
+  <section class="card card--featured">
+    <p class="num">II.</p>
+    <h2>Future Cut Discount</h2>
+    <hr class="card-rule" />
+
+    <p class="deck">
+      <input class="num-in" id="fc-deck" type="number" inputmode="numeric" min="1" max="999" value="20" aria-label="future cut deck size" />
+      alters &times; $<input class="num-in" id="fc-rate" type="number" inputmode="numeric" min="0" max="999999" value="60" aria-label="future cut per-alter rate" />
+    </p>
+
+    <div class="setting">
+      <span>Resale per piece</span>
+      <span class="v">$<input class="num-in wide" id="resale" type="number" inputmode="numeric" min="0" max="999999" value="200" aria-label="resale price per piece" /></span>
+    </div>
+    <div class="setting">
+      <span>My cut on resale</span>
+      <span class="v"><input class="num-in" id="mycut" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="5" aria-label="my cut percent" />%</span>
+    </div>
+
+    <hr class="div" />
+
+    <div class="row">
+      <span class="lbl">Up Front</span>
+      <span class="amt right" id="fc-upfront">$1,200</span>
+    </div>
+    <div class="row">
+      <span class="lbl">On Sale</span>
+      <span class="right">
+        <span class="amt" id="fc-onsale">+$2,600</span>
+        <span class="formula" id="fc-formula">20 &times; ($200 &minus; $60 &minus; $10)</span>
+      </span>
+    </div>
+
+    <div class="row row--total">
+      <span class="lbl">Total</span>
+      <span class="amt" id="fc-total">$3,800</span>
+    </div>
+
+    <p class="tag">Patient. Paid again on every sale.</p>
+
+    <hr class="div div--cashout" />
+    <p class="cashout-title">Cashout</p>
+    <p class="cashout-body">
+      If unsold at <input class="num-in" id="cashout-mo" type="number" inputmode="numeric" min="1" max="120" value="12" aria-label="cashout months" /> months,
+      artist may collect the $<span id="cashout-gap">20</span> gap and convert to bulk. Future share waived.
+    </p>
+  </section>
+
+  <footer class="foot">
+    <a href="https://www.instagram.com/dankomphalos/" target="_blank" rel="noopener">@dankomphalos</a>
+    &nbsp;&middot;&nbsp;
+    <a href="mailto:hello@dankomphalos.com">hello@dankomphalos.com</a>
+    <span class="url">dankomphalos.com</span>
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const fmt = n => "$" + Math.round(n).toLocaleString("en-US");
+
+function val(id, fallback){
+  const v = parseFloat($(id).value);
+  return Number.isFinite(v) ? v : fallback;
+}
+
+function recalc(){
+  // Bulk
+  const bDeck  = Math.max(0, val("bulk-deck", 10));
+  const bRate  = Math.max(0, val("bulk-rate", 80));
+  const bTotal = bDeck * bRate;
+  $("bulk-total").textContent = fmt(bTotal);
+
+  // Future Cut
+  const fcDeck   = Math.max(0, val("fc-deck", 20));
+  const fcRate   = Math.max(0, val("fc-rate", 60));
+  const resale   = Math.max(0, val("resale", 200));
+  const myPct    = Math.max(0, Math.min(100, val("mycut", 5)));
+  const myAmt    = resale * myPct / 100;
+  const perSale  = Math.max(0, resale - fcRate - myAmt);
+  const fcUp     = fcDeck * fcRate;
+  const fcSale   = fcDeck * perSale;
+  const fcTotal  = fcUp + fcSale;
+
+  $("fc-upfront").textContent = fmt(fcUp);
+  $("fc-onsale").textContent  = "+" + fmt(fcSale);
+  $("fc-total").textContent   = fmt(fcTotal);
+
+  // Use Math.round for the formula breakdown so it reads cleanly
+  $("fc-formula").innerHTML =
+    fcDeck + " &times; ($" + Math.round(resale) +
+    " &minus; $" + Math.round(fcRate) +
+    " &minus; $" + Math.round(myAmt) + ")";
+
+  // Cashout
+  const gap = Math.max(0, bRate - fcRate);
+  $("cashout-gap").textContent = Math.round(gap);
+}
+
+document.querySelectorAll(".num-in").forEach(el => {
+  el.addEventListener("input", recalc);
+  el.addEventListener("focus", () => el.select());
+});
+
+recalc();
+</script>
+</body>
+</html>
