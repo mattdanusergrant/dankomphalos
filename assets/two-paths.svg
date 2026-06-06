@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-label="Dank Omphalos — Two paths for the artist: bulk discount or future returns discount">
+  <title>Two paths for the artist</title>
+  <defs>
+    <radialGradient id="topGlow" cx="50%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#8A2433" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#8A2433" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="botGlow" cx="100%" cy="100%" r="55%">
+      <stop offset="0%" stop-color="#B8965A" stop-opacity="0.10"/>
+      <stop offset="60%" stop-color="#B8965A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mark" cx="38%" cy="32%" r="60%">
+      <stop offset="0%" stop-color="#B8965A"/>
+      <stop offset="30%" stop-color="#B8965A"/>
+      <stop offset="32%" stop-color="#3A1018"/>
+      <stop offset="100%" stop-color="#3A1018"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="#0B090C"/>
+  <rect width="1080" height="1080" fill="url(#topGlow)"/>
+  <rect width="1080" height="1080" fill="url(#botGlow)"/>
+
+  <!-- brand -->
+  <g transform="translate(540 110)" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">
+    <circle cx="-180" cy="-7" r="14" fill="url(#mark)" stroke="#B8965A" stroke-opacity="0.55" stroke-width="1"/>
+    <text x="-150" y="0" text-anchor="start" font-size="26" font-weight="700" letter-spacing="4.5" fill="#E9E2D4">DANK OMPHALOS</text>
+  </g>
+
+  <!-- kicker -->
+  <text x="540" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="16" letter-spacing="5" fill="#B8965A" font-weight="700">TWO PATHS FOR THE ARTIST</text>
+
+  <!-- title -->
+  <text x="540" y="280" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="58" fill="#E9E2D4">Same body of work.</text>
+  <text x="540" y="346" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="58" fill="#E9E2D4">Two ways to be paid.</text>
+
+  <!-- rule -->
+  <line x1="500" y1="386" x2="580" y2="386" stroke="#B8965A" stroke-opacity="0.55" stroke-width="1"/>
+
+  <!-- ============ PATH I — BULK DISCOUNT ============ -->
+  <g transform="translate(70 440)">
+    <rect width="460" height="520" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="2"/>
+
+    <text x="230" y="58" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#B8965A" letter-spacing="2">I.</text>
+    <text x="230" y="108" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="3.5">BULK DISCOUNT</text>
+    <line x1="180" y1="130" x2="280" y2="130" stroke="#B8965A" stroke-opacity="0.4" stroke-width="1"/>
+
+    <!-- up front -->
+    <text x="50" y="180" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">UP FRONT</text>
+    <rect x="50" y="198" width="360" height="46" fill="#B8965A"/>
+    <text x="230" y="228" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" letter-spacing="3" fill="#0B090C">FULL PAYMENT</text>
+
+    <!-- on sale -->
+    <text x="50" y="298" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">ON SALE</text>
+    <rect x="50" y="316" width="360" height="46" fill="none" stroke="#2A2430" stroke-width="1" stroke-dasharray="5 5"/>
+    <text x="230" y="346" text-anchor="middle" font-family="Georgia, serif" font-size="16" letter-spacing="3" fill="#938A82">—</text>
+
+    <!-- tagline -->
+    <text x="230" y="430" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" fill="#E9E2D4">Paid once. More now.</text>
+    <text x="230" y="478" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#938A82">Clean break. No further claim.</text>
+  </g>
+
+  <!-- ============ PATH II — FUTURE RETURNS ============ -->
+  <g transform="translate(550 440)">
+    <rect width="460" height="520" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="2"/>
+
+    <text x="230" y="58" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#B8965A" letter-spacing="2">II.</text>
+    <text x="230" y="108" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="3.5">FUTURE RETURNS</text>
+    <line x1="180" y1="130" x2="280" y2="130" stroke="#B8965A" stroke-opacity="0.4" stroke-width="1"/>
+
+    <!-- up front -->
+    <text x="50" y="180" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">UP FRONT</text>
+    <rect x="50" y="198" width="216" height="46" fill="#B8965A"/>
+    <text x="158" y="228" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-weight="700" letter-spacing="3" fill="#0B090C">SMALLER</text>
+
+    <!-- on sale -->
+    <text x="50" y="298" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">ON SALE</text>
+    <rect x="50" y="316" width="300" height="46" fill="#8A2433"/>
+    <text x="200" y="346" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-weight="700" letter-spacing="3" fill="#E9E2D4">PAID AGAIN</text>
+
+    <!-- tagline -->
+    <text x="230" y="430" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" fill="#E9E2D4">Paid twice. More total.</text>
+    <text x="230" y="478" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#938A82">Patient. Bigger ceiling.</text>
+  </g>
+
+  <!-- footer -->
+  <line x1="380" y1="1000" x2="700" y2="1000" stroke="#2A2430" stroke-width="1"/>
+  <text x="540" y="1030" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="3" fill="#938A82">Non-exclusive. Always. You pick the path.</text>
+  <text x="540" y="1056" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="2" fill="#B8965A">dankomphalos.com</text>
+</svg>
