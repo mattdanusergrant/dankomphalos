@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-label="Dank Omphalos — Three paths for the artist with example calculations">
-  <title>Three paths for the artist</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-label="Dank Omphalos — Bulk Discount vs Future Cut Discount with example calculations">
+  <title>Two paths for the artist</title>
   <defs>
     <radialGradient id="topGlow" cx="50%" cy="0%" r="55%">
       <stop offset="0%" stop-color="#8A2433" stop-opacity="0.22"/>
@@ -17,9 +17,9 @@
     </radialGradient>
   </defs>
 
-  <rect width="1080" height="1350" fill="#0B090C"/>
-  <rect width="1080" height="1350" fill="url(#topGlow)"/>
-  <rect width="1080" height="1350" fill="url(#botGlow)"/>
+  <rect width="1080" height="1080" fill="#0B090C"/>
+  <rect width="1080" height="1080" fill="url(#topGlow)"/>
+  <rect width="1080" height="1080" fill="url(#botGlow)"/>
 
   <!-- brand -->
   <g transform="translate(540 95)" font-family="Georgia, serif">
@@ -28,92 +28,57 @@
   </g>
 
   <!-- kicker -->
-  <text x="540" y="175" text-anchor="middle" font-family="Georgia, serif" font-size="18" letter-spacing="6" fill="#B8965A" font-weight="700">THREE PATHS FOR THE ARTIST</text>
-  <line x1="500" y1="198" x2="580" y2="198" stroke="#B8965A" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="540" y="170" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="18" letter-spacing="2" fill="#B8965A">Examples assume a rate of $100 per 1 alter for clear math</text>
+  <line x1="500" y1="195" x2="580" y2="195" stroke="#B8965A" stroke-opacity="0.55" stroke-width="1"/>
 
-  <!-- ============ I — STANDARD RATE ============ -->
-  <g transform="translate(24 230)" font-family="Georgia, serif">
-    <rect width="336" height="1010" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="3"/>
+  <!-- ============ I — BULK DISCOUNT ============ -->
+  <g transform="translate(40 225)" font-family="Georgia, serif">
+    <rect width="480" height="790" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="3"/>
 
-    <text x="168" y="60" text-anchor="middle" font-style="italic" font-size="26" fill="#B8965A" letter-spacing="2">I.</text>
-    <text x="168" y="115" text-anchor="middle" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="4">STANDARD</text>
-    <text x="168" y="153" text-anchor="middle" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="4">RATE</text>
-    <line x1="118" y1="180" x2="218" y2="180" stroke="#B8965A" stroke-opacity="0.45" stroke-width="1"/>
+    <text x="240" y="62" text-anchor="middle" font-style="italic" font-size="28" fill="#B8965A" letter-spacing="2">I.</text>
+    <text x="240" y="118" text-anchor="middle" font-weight="700" font-size="30" fill="#E9E2D4" letter-spacing="4">BULK</text>
+    <text x="240" y="158" text-anchor="middle" font-weight="700" font-size="30" fill="#E9E2D4" letter-spacing="4">DISCOUNT</text>
+    <line x1="180" y1="186" x2="300" y2="186" stroke="#B8965A" stroke-opacity="0.45" stroke-width="1"/>
 
-    <text x="168" y="240" text-anchor="middle" font-size="15" letter-spacing="3" fill="#938A82">5 ALTERS &#215; $100</text>
+    <text x="240" y="246" text-anchor="middle" font-size="16" letter-spacing="3" fill="#938A82">10 ALTERS &#215; $80</text>
 
-    <text x="168" y="320" text-anchor="middle" font-size="14" letter-spacing="4" fill="#938A82" font-weight="600">UP FRONT</text>
-    <text x="168" y="400" text-anchor="middle" font-size="64" fill="#E9E2D4" font-weight="600">$500</text>
+    <text x="240" y="322" text-anchor="middle" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">UP FRONT</text>
+    <text x="240" y="402" text-anchor="middle" font-size="72" fill="#E9E2D4" font-weight="600">$800</text>
 
-    <text x="168" y="480" text-anchor="middle" font-size="14" letter-spacing="4" fill="#938A82" font-weight="600">ON SALE</text>
-    <text x="168" y="555" text-anchor="middle" font-size="52" fill="#938A82">&#8212;</text>
+    <text x="240" y="478" text-anchor="middle" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">ON SALE</text>
+    <text x="240" y="552" text-anchor="middle" font-size="56" fill="#938A82">&#8212;</text>
 
-    <line x1="58" y1="620" x2="278" y2="620" stroke="#2A2430" stroke-width="1"/>
+    <line x1="80" y1="612" x2="400" y2="612" stroke="#2A2430" stroke-width="1"/>
 
-    <text x="168" y="680" text-anchor="middle" font-size="14" letter-spacing="4" fill="#B8965A" font-weight="700">TOTAL</text>
-    <text x="168" y="785" text-anchor="middle" font-size="78" fill="#E9E2D4" font-weight="700">$500</text>
-
-    <text x="168" y="870" text-anchor="middle" font-style="italic" font-size="20" fill="#E9E2D4">The baseline.</text>
-    <text x="168" y="910" text-anchor="middle" font-size="13" fill="#938A82">Full rate. Paid once.</text>
-    <text x="168" y="935" text-anchor="middle" font-size="13" fill="#938A82">No further claim.</text>
+    <text x="240" y="662" text-anchor="middle" font-size="15" letter-spacing="5" fill="#B8965A" font-weight="700">TOTAL</text>
+    <text x="240" y="760" text-anchor="middle" font-size="88" fill="#E9E2D4" font-weight="700">$800</text>
   </g>
 
-  <!-- ============ II — BULK DISCOUNT ============ -->
-  <g transform="translate(372 230)" font-family="Georgia, serif">
-    <rect width="336" height="1010" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="3"/>
+  <!-- ============ II — FUTURE CUT DISCOUNT ============ -->
+  <g transform="translate(560 225)" font-family="Georgia, serif">
+    <rect width="480" height="790" fill="#15121A" stroke="#B8965A" stroke-opacity="0.5" stroke-width="1.5" rx="3"/>
 
-    <text x="168" y="60" text-anchor="middle" font-style="italic" font-size="26" fill="#B8965A" letter-spacing="2">II.</text>
-    <text x="168" y="115" text-anchor="middle" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="4">BULK</text>
-    <text x="168" y="153" text-anchor="middle" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="4">DISCOUNT</text>
-    <line x1="118" y1="180" x2="218" y2="180" stroke="#B8965A" stroke-opacity="0.45" stroke-width="1"/>
+    <text x="240" y="62" text-anchor="middle" font-style="italic" font-size="28" fill="#B8965A" letter-spacing="2">II.</text>
+    <text x="240" y="118" text-anchor="middle" font-weight="700" font-size="30" fill="#E9E2D4" letter-spacing="4">FUTURE CUT</text>
+    <text x="240" y="158" text-anchor="middle" font-weight="700" font-size="30" fill="#E9E2D4" letter-spacing="4">DISCOUNT</text>
+    <line x1="180" y1="186" x2="300" y2="186" stroke="#B8965A" stroke-opacity="0.6" stroke-width="1"/>
 
-    <text x="168" y="240" text-anchor="middle" font-size="15" letter-spacing="3" fill="#938A82">10 ALTERS &#215; $80</text>
+    <text x="240" y="246" text-anchor="middle" font-size="16" letter-spacing="3" fill="#938A82">20 ALTERS &#215; $60</text>
 
-    <text x="168" y="320" text-anchor="middle" font-size="14" letter-spacing="4" fill="#938A82" font-weight="600">UP FRONT</text>
-    <text x="168" y="400" text-anchor="middle" font-size="64" fill="#E9E2D4" font-weight="600">$800</text>
+    <text x="240" y="322" text-anchor="middle" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">UP FRONT</text>
+    <text x="240" y="402" text-anchor="middle" font-size="72" fill="#E9E2D4" font-weight="600">$1,200</text>
 
-    <text x="168" y="480" text-anchor="middle" font-size="14" letter-spacing="4" fill="#938A82" font-weight="600">ON SALE</text>
-    <text x="168" y="555" text-anchor="middle" font-size="52" fill="#938A82">&#8212;</text>
+    <text x="240" y="478" text-anchor="middle" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">ON SALE</text>
+    <text x="240" y="552" text-anchor="middle" font-size="56" fill="#E9E2D4" font-weight="600">+ $2,600</text>
+    <text x="240" y="588" text-anchor="middle" font-size="13" letter-spacing="2" fill="#938A82" font-style="italic">20 &#215; ($200 &#8722; $60 &#8722; $10)</text>
 
-    <line x1="58" y1="620" x2="278" y2="620" stroke="#2A2430" stroke-width="1"/>
+    <line x1="80" y1="612" x2="400" y2="612" stroke="#B8965A" stroke-opacity="0.35" stroke-width="1"/>
 
-    <text x="168" y="680" text-anchor="middle" font-size="14" letter-spacing="4" fill="#B8965A" font-weight="700">TOTAL</text>
-    <text x="168" y="785" text-anchor="middle" font-size="78" fill="#E9E2D4" font-weight="700">$800</text>
-
-    <text x="168" y="870" text-anchor="middle" font-style="italic" font-size="20" fill="#E9E2D4">More pieces.</text>
-    <text x="168" y="910" text-anchor="middle" font-size="13" fill="#938A82">Bigger upfront. Paid once.</text>
-    <text x="168" y="935" text-anchor="middle" font-size="13" fill="#938A82">No further claim.</text>
-  </g>
-
-  <!-- ============ III — FUTURE CUT ============ -->
-  <g transform="translate(720 230)" font-family="Georgia, serif">
-    <rect width="336" height="1010" fill="#15121A" stroke="#B8965A" stroke-opacity="0.5" stroke-width="1.5" rx="3"/>
-
-    <text x="168" y="60" text-anchor="middle" font-style="italic" font-size="26" fill="#B8965A" letter-spacing="2">III.</text>
-    <text x="168" y="115" text-anchor="middle" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="4">FUTURE CUT</text>
-    <text x="168" y="153" text-anchor="middle" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="4">DISCOUNT</text>
-    <line x1="118" y1="180" x2="218" y2="180" stroke="#B8965A" stroke-opacity="0.6" stroke-width="1"/>
-
-    <text x="168" y="240" text-anchor="middle" font-size="15" letter-spacing="3" fill="#938A82">20 ALTERS &#215; $60</text>
-
-    <text x="168" y="320" text-anchor="middle" font-size="14" letter-spacing="4" fill="#938A82" font-weight="600">UP FRONT</text>
-    <text x="168" y="400" text-anchor="middle" font-size="64" fill="#E9E2D4" font-weight="600">$1,200</text>
-
-    <text x="168" y="480" text-anchor="middle" font-size="14" letter-spacing="4" fill="#938A82" font-weight="600">ON SALE</text>
-    <text x="168" y="555" text-anchor="middle" font-size="52" fill="#E9E2D4" font-weight="600">+ $2,600</text>
-    <text x="168" y="590" text-anchor="middle" font-size="12" letter-spacing="2" fill="#938A82" font-style="italic">20 &#215; ($200 &#8722; $60 &#8722; $10)</text>
-
-    <line x1="58" y1="620" x2="278" y2="620" stroke="#B8965A" stroke-opacity="0.35" stroke-width="1"/>
-
-    <text x="168" y="680" text-anchor="middle" font-size="14" letter-spacing="4" fill="#B8965A" font-weight="700">TOTAL</text>
-    <text x="168" y="785" text-anchor="middle" font-size="78" fill="#E9E2D4" font-weight="700">$3,800</text>
-
-    <text x="168" y="870" text-anchor="middle" font-style="italic" font-size="20" fill="#E9E2D4">Patient. Biggest ceiling.</text>
-    <text x="168" y="910" text-anchor="middle" font-size="13" fill="#938A82">Paid up front, then again</text>
-    <text x="168" y="935" text-anchor="middle" font-size="13" fill="#938A82">on every sale.</text>
+    <text x="240" y="662" text-anchor="middle" font-size="15" letter-spacing="5" fill="#B8965A" font-weight="700">TOTAL</text>
+    <text x="240" y="760" text-anchor="middle" font-size="88" fill="#E9E2D4" font-weight="700">$3,800</text>
   </g>
 
   <!-- footer -->
-  <text x="540" y="1290" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#938A82">Example: every piece resells at $200. On resale my cut = up-front + 5% of sale. Artist keeps the rest.</text>
-  <text x="540" y="1325" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#B8965A">dankomphalos.com</text>
+  <text x="540" y="1042" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#938A82">Resale example: piece sells for $200. My cut = up-front + 5% of sale. Artist keeps the rest.</text>
+  <text x="540" y="1068" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#B8965A">dankomphalos.com</text>
 </svg>
