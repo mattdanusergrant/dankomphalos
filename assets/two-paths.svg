@@ -100,13 +100,13 @@
     <text x="168" y="400" text-anchor="middle" font-size="64" fill="#E9E2D4" font-weight="600">$1,200</text>
 
     <text x="168" y="480" text-anchor="middle" font-size="14" letter-spacing="4" fill="#938A82" font-weight="600">ON SALE</text>
-    <text x="168" y="555" text-anchor="middle" font-size="52" fill="#E9E2D4" font-weight="600">+ $2,520</text>
-    <text x="168" y="590" text-anchor="middle" font-size="12" letter-spacing="2" fill="#938A82" font-style="italic">20 &#215; 90% &#215; ($200 &#8722; $60)</text>
+    <text x="168" y="555" text-anchor="middle" font-size="52" fill="#E9E2D4" font-weight="600">+ $2,600</text>
+    <text x="168" y="590" text-anchor="middle" font-size="12" letter-spacing="2" fill="#938A82" font-style="italic">20 &#215; ($200 &#8722; $60 &#8722; $10)</text>
 
     <line x1="58" y1="620" x2="278" y2="620" stroke="#B8965A" stroke-opacity="0.35" stroke-width="1"/>
 
     <text x="168" y="680" text-anchor="middle" font-size="14" letter-spacing="4" fill="#B8965A" font-weight="700">TOTAL</text>
-    <text x="168" y="785" text-anchor="middle" font-size="78" fill="#E9E2D4" font-weight="700">$3,720</text>
+    <text x="168" y="785" text-anchor="middle" font-size="78" fill="#E9E2D4" font-weight="700">$3,800</text>
 
     <text x="168" y="870" text-anchor="middle" font-style="italic" font-size="20" fill="#E9E2D4">Patient. Biggest ceiling.</text>
     <text x="168" y="910" text-anchor="middle" font-size="13" fill="#938A82">Paid up front, then again</text>
@@ -114,6 +114,6 @@
   </g>
 
   <!-- footer -->
-  <text x="540" y="1290" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#938A82">Example: every piece resells at $200. Future Cut resale share = 90% &#215; (resale &#8722; up-front per piece).</text>
+  <text x="540" y="1290" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#938A82">Example: every piece resells at $200. On resale my cut = up-front + 5% of sale. Artist keeps the rest.</text>
   <text x="540" y="1325" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#B8965A">dankomphalos.com</text>
 </svg>
