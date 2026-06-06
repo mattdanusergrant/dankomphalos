@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-label="Dank Omphalos — Two paths for the artist: bulk discount or future returns discount">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-label="Dank Omphalos — Two paths for the artist: bulk discount vs future returns, with example calculations">
   <title>Two paths for the artist</title>
   <defs>
     <radialGradient id="topGlow" cx="50%" cy="0%" r="55%">
@@ -22,69 +22,72 @@
   <rect width="1080" height="1080" fill="url(#botGlow)"/>
 
   <!-- brand -->
-  <g transform="translate(540 110)" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">
+  <g transform="translate(540 95)" font-family="Georgia, serif">
     <circle cx="-180" cy="-7" r="14" fill="url(#mark)" stroke="#B8965A" stroke-opacity="0.55" stroke-width="1"/>
     <text x="-150" y="0" text-anchor="start" font-size="26" font-weight="700" letter-spacing="4.5" fill="#E9E2D4">DANK OMPHALOS</text>
   </g>
 
   <!-- kicker -->
-  <text x="540" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="16" letter-spacing="5" fill="#B8965A" font-weight="700">TWO PATHS FOR THE ARTIST</text>
-
-  <!-- title -->
-  <text x="540" y="280" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="58" fill="#E9E2D4">Same body of work.</text>
-  <text x="540" y="346" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="58" fill="#E9E2D4">Two ways to be paid.</text>
-
-  <!-- rule -->
-  <line x1="500" y1="386" x2="580" y2="386" stroke="#B8965A" stroke-opacity="0.55" stroke-width="1"/>
+  <text x="540" y="175" text-anchor="middle" font-family="Georgia, serif" font-size="18" letter-spacing="6" fill="#B8965A" font-weight="700">TWO PATHS FOR THE ARTIST</text>
+  <line x1="500" y1="198" x2="580" y2="198" stroke="#B8965A" stroke-opacity="0.55" stroke-width="1"/>
 
   <!-- ============ PATH I — BULK DISCOUNT ============ -->
-  <g transform="translate(70 440)">
-    <rect width="460" height="520" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="2"/>
+  <g transform="translate(40 230)">
+    <rect width="500" height="780" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="3"/>
 
-    <text x="230" y="58" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#B8965A" letter-spacing="2">I.</text>
-    <text x="230" y="108" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="3.5">BULK DISCOUNT</text>
-    <line x1="180" y1="130" x2="280" y2="130" stroke="#B8965A" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="250" y="68" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="28" fill="#B8965A" letter-spacing="2">I.</text>
+    <text x="250" y="122" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="30" fill="#E9E2D4" letter-spacing="4">BULK DISCOUNT</text>
+    <line x1="180" y1="148" x2="320" y2="148" stroke="#B8965A" stroke-opacity="0.45" stroke-width="1"/>
 
     <!-- up front -->
-    <text x="50" y="180" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">UP FRONT</text>
-    <rect x="50" y="198" width="360" height="46" fill="#B8965A"/>
-    <text x="230" y="228" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" letter-spacing="3" fill="#0B090C">FULL PAYMENT</text>
+    <text x="250" y="218" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">UP FRONT</text>
+    <text x="250" y="298" text-anchor="middle" font-family="Georgia, serif" font-size="72" fill="#E9E2D4" font-weight="600">$500</text>
 
     <!-- on sale -->
-    <text x="50" y="298" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">ON SALE</text>
-    <rect x="50" y="316" width="360" height="46" fill="none" stroke="#2A2430" stroke-width="1" stroke-dasharray="5 5"/>
-    <text x="230" y="346" text-anchor="middle" font-family="Georgia, serif" font-size="16" letter-spacing="3" fill="#938A82">—</text>
+    <text x="250" y="378" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">ON SALE</text>
+    <text x="250" y="450" text-anchor="middle" font-family="Georgia, serif" font-size="56" fill="#938A82">—</text>
+
+    <!-- divider -->
+    <line x1="90" y1="510" x2="410" y2="510" stroke="#2A2430" stroke-width="1"/>
+
+    <!-- total -->
+    <text x="250" y="558" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="5" fill="#B8965A" font-weight="700">TOTAL</text>
+    <text x="250" y="660" text-anchor="middle" font-family="Georgia, serif" font-size="92" fill="#E9E2D4" font-weight="700">$500</text>
 
     <!-- tagline -->
-    <text x="230" y="430" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" fill="#E9E2D4">Paid once. More now.</text>
-    <text x="230" y="478" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#938A82">Clean break. No further claim.</text>
+    <text x="250" y="720" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#E9E2D4">Paid once. More now.</text>
+    <text x="250" y="755" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#938A82">Clean break. No further claim.</text>
   </g>
 
   <!-- ============ PATH II — FUTURE RETURNS ============ -->
-  <g transform="translate(550 440)">
-    <rect width="460" height="520" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="2"/>
+  <g transform="translate(540 230)">
+    <rect width="500" height="780" fill="#15121A" stroke="#2A2430" stroke-width="1" rx="3"/>
 
-    <text x="230" y="58" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#B8965A" letter-spacing="2">II.</text>
-    <text x="230" y="108" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="26" fill="#E9E2D4" letter-spacing="3.5">FUTURE RETURNS</text>
-    <line x1="180" y1="130" x2="280" y2="130" stroke="#B8965A" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="250" y="68" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="28" fill="#B8965A" letter-spacing="2">II.</text>
+    <text x="250" y="122" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="30" fill="#E9E2D4" letter-spacing="4">FUTURE RETURNS</text>
+    <line x1="180" y1="148" x2="320" y2="148" stroke="#B8965A" stroke-opacity="0.45" stroke-width="1"/>
 
     <!-- up front -->
-    <text x="50" y="180" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">UP FRONT</text>
-    <rect x="50" y="198" width="216" height="46" fill="#B8965A"/>
-    <text x="158" y="228" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-weight="700" letter-spacing="3" fill="#0B090C">SMALLER</text>
+    <text x="250" y="218" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">UP FRONT</text>
+    <text x="250" y="298" text-anchor="middle" font-family="Georgia, serif" font-size="72" fill="#E9E2D4" font-weight="600">$300</text>
 
     <!-- on sale -->
-    <text x="50" y="298" font-family="Georgia, serif" font-size="13" letter-spacing="3" fill="#938A82">ON SALE</text>
-    <rect x="50" y="316" width="300" height="46" fill="#8A2433"/>
-    <text x="200" y="346" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-weight="700" letter-spacing="3" fill="#E9E2D4">PAID AGAIN</text>
+    <text x="250" y="378" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="5" fill="#938A82" font-weight="600">ON SALE</text>
+    <text x="250" y="450" text-anchor="middle" font-family="Georgia, serif" font-size="60" fill="#E9E2D4" font-weight="600">+ $560</text>
+
+    <!-- divider -->
+    <line x1="90" y1="510" x2="410" y2="510" stroke="#2A2430" stroke-width="1"/>
+
+    <!-- total -->
+    <text x="250" y="558" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="5" fill="#B8965A" font-weight="700">TOTAL</text>
+    <text x="250" y="660" text-anchor="middle" font-family="Georgia, serif" font-size="92" fill="#E9E2D4" font-weight="700">$860</text>
 
     <!-- tagline -->
-    <text x="230" y="430" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" fill="#E9E2D4">Paid twice. More total.</text>
-    <text x="230" y="478" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#938A82">Patient. Bigger ceiling.</text>
+    <text x="250" y="720" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#E9E2D4">Paid twice. More total.</text>
+    <text x="250" y="755" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#938A82">Patient. Bigger ceiling.</text>
   </g>
 
-  <!-- footer -->
-  <line x1="380" y1="1000" x2="700" y2="1000" stroke="#2A2430" stroke-width="1"/>
-  <text x="540" y="1030" text-anchor="middle" font-family="Georgia, serif" font-size="15" letter-spacing="3" fill="#938A82">Non-exclusive. Always. You pick the path.</text>
-  <text x="540" y="1056" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="2" fill="#B8965A">dankomphalos.com</text>
+  <!-- footnote -->
+  <text x="540" y="1042" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="2" fill="#938A82">Per piece. Example: $1,000 floor. Artist keeps 80% of upside above recoup.</text>
+  <text x="540" y="1068" text-anchor="middle" font-family="Georgia, serif" font-size="12" letter-spacing="2" fill="#B8965A">dankomphalos.com</text>
 </svg>
