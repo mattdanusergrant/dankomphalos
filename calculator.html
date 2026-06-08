@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Dank Omphalos — Calculator</title>
-<meta name="description" content="Tune the example: bulk discount vs future cut discount. Totals update live." />
+<meta name="description" content="Tune the discount slider; see how the deal totals shift live." />
 <!-- #LLM-generated — artist calculator. Mobile-first. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,25 +42,49 @@
 
   /* card */
   .card{background:var(--paper);border:1px solid var(--line);border-radius:3px;
-    padding:32px 24px 28px;margin:0 0 24px}
+    padding:30px 24px 26px;margin:0 0 22px}
   .card--featured{border-color:rgba(184,150,90,.5)}
-  .card .num{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--brass);
-    margin:0;text-align:center;letter-spacing:.04em}
-  .card h2{font-family:var(--display);font-weight:700;font-size:24px;
+  .card .num{font-family:var(--display);font-size:13px;color:var(--brass);
+    margin:0;text-align:center;letter-spacing:.28em;text-transform:uppercase;font-weight:700}
+  .card h2{font-family:var(--display);font-weight:700;font-size:26px;
     text-transform:uppercase;letter-spacing:.18em;text-align:center;
-    margin:8px 0 0;color:var(--ink)}
-  .card-rule{width:80px;height:1px;background:rgba(184,150,90,.45);border:0;margin:14px auto 20px}
-
-  .deck{text-align:center;font-size:20px;color:var(--muted);letter-spacing:.04em;margin:0 0 16px}
+    margin:6px 0 0;color:var(--ink)}
+  .card-rule{width:80px;height:1px;background:rgba(184,150,90,.45);border:0;margin:14px auto 18px}
 
   .div{border:0;border-top:1px solid var(--line);margin:18px 0}
   .div--cashout{border-top:1px dashed rgba(184,150,90,.35);margin:22px 0 18px}
 
+  /* settings rows */
   .setting{display:flex;justify-content:space-between;align-items:baseline;
-    font-size:15px;color:var(--muted);letter-spacing:.04em;margin:6px 0;padding:0 2px;
+    font-size:14px;color:var(--muted);letter-spacing:.18em;margin:10px 0;
     text-transform:uppercase;font-family:var(--display);font-weight:600}
-  .setting .v{color:var(--ink);font-family:var(--body);font-weight:400;font-size:18px;text-transform:none;letter-spacing:0}
+  .setting .v{color:var(--ink);font-family:var(--body);font-weight:400;font-size:19px;
+    text-transform:none;letter-spacing:0}
 
+  /* slider */
+  .slider-block{margin:6px 0 4px}
+  .slider-head{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 14px}
+  .slider-label{font-family:var(--display);font-size:14px;letter-spacing:.28em;
+    color:var(--muted);text-transform:uppercase;font-weight:700}
+  .slider-value{font-family:var(--serif);font-size:36px;color:var(--brass);font-weight:600;line-height:1}
+  .range{-webkit-appearance:none;appearance:none;width:100%;height:6px;
+    background:var(--line);border-radius:999px;outline:none;margin:0;padding:0}
+  .range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:26px;height:26px;border-radius:50%;background:var(--brass);
+    cursor:pointer;border:2px solid var(--bg);box-shadow:0 0 14px rgba(184,150,90,.5);transition:.15s}
+  .range::-webkit-slider-thumb:hover{transform:scale(1.08)}
+  .range::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--brass);
+    cursor:pointer;border:2px solid var(--bg);box-shadow:0 0 14px rgba(184,150,90,.5)}
+  .range:focus{outline:none}
+  .range:focus::-webkit-slider-thumb{box-shadow:0 0 16px rgba(184,150,90,.8)}
+  .derived{display:flex;justify-content:center;gap:18px;margin:18px 0 4px;
+    font-size:16px;color:var(--muted);letter-spacing:.04em;flex-wrap:wrap}
+  .derived strong{color:var(--ink);font-weight:600;font-family:var(--serif);font-size:20px}
+  .derived .dot{color:var(--line)}
+  .relation-note{text-align:center;font-size:13px;color:var(--muted);
+    font-style:italic;margin:14px 0 0;letter-spacing:.02em}
+
+  /* total rows */
   .row{display:flex;justify-content:space-between;align-items:baseline;padding:12px 4px;
     border-bottom:1px dashed var(--line)}
   .row:last-of-type{border-bottom:none}
@@ -70,7 +94,7 @@
   .row .right{text-align:right}
   .row .formula{display:block;font-size:13px;color:var(--muted);font-style:italic;
     margin-top:4px;letter-spacing:.04em}
-  .row--total{background:var(--paper2);margin:16px -8px 0;padding:18px 12px;border-radius:2px;border:0}
+  .row--total{background:var(--paper2);margin:14px -8px 0;padding:18px 12px;border-radius:2px;border:0}
   .row--total .lbl{color:var(--brass);font-weight:700}
   .row--total .amt{font-size:44px;font-weight:700}
 
@@ -93,7 +117,7 @@
   .num-in:focus{outline:0;border-bottom-color:var(--brass);background:rgba(184,150,90,.06)}
   .num-in.wide{min-width:3.4em}
 
-  .foot{margin:32px auto 0;padding-top:22px;border-top:1px solid var(--line);
+  .foot{margin:28px auto 0;padding-top:22px;border-top:1px solid var(--line);
     text-align:center;color:var(--muted);font-size:14px;letter-spacing:.04em}
   .foot a{color:var(--brass);text-decoration:none;border-bottom:1px solid transparent}
   .foot a:hover{border-color:var(--brass)}
@@ -101,11 +125,11 @@
 
   @media (max-width:380px){
     .brand .word{font-size:18px}
-    .card h2{font-size:21px;letter-spacing:.14em}
+    .card h2{font-size:22px;letter-spacing:.14em}
     .row .amt{font-size:30px}
     .row--total .amt{font-size:38px}
     .card{padding:26px 18px 22px}
-    .deck{font-size:18px}
+    .slider-value{font-size:32px}
   }
 </style>
 </head>
@@ -117,65 +141,69 @@
     <span class="word">Dank Omphalos</span>
   </div>
 
-  <p class="kicker">Tune any number &mdash; totals update live</p>
+  <p class="kicker">Slide the discount &mdash; the deal updates live</p>
   <hr class="kicker-rule" />
 
-  <!-- ========== I — BULK DISCOUNT ========== -->
+  <!-- ========== SETTINGS ========== -->
   <section class="card">
-    <p class="num">I.</p>
-    <h2>Bulk Discount</h2>
+    <p class="num">Assumptions</p>
     <hr class="card-rule" />
 
-    <p class="deck">
-      <input class="num-in" id="bulk-deck" type="number" inputmode="numeric" min="1" max="999" value="10" aria-label="bulk deck size" />
-      alters &times; $<input class="num-in" id="bulk-rate" type="number" inputmode="numeric" min="0" max="999999" value="80" aria-label="bulk per-alter rate" />
-    </p>
-
-    <div class="row row--total">
-      <span class="lbl">Total</span>
-      <span class="amt" id="bulk-total">$800</span>
+    <div class="setting">
+      <span>Base commission rate</span>
+      <span class="v">$<input class="num-in wide" id="base" type="number" inputmode="numeric" min="0" max="999999" value="100" aria-label="base commission rate" /> / alter</span>
     </div>
-
-    <p class="tag">Bigger upfront. Paid once.</p>
+    <div class="setting">
+      <span>Target sale price</span>
+      <span class="v">$<input class="num-in wide" id="target" type="number" inputmode="numeric" min="0" max="999999" value="200" aria-label="target sale price" /> / piece</span>
+    </div>
+    <div class="setting">
+      <span>Deck size</span>
+      <span class="v"><input class="num-in" id="deck" type="number" inputmode="numeric" min="1" max="999" value="20" aria-label="deck size" /> alters</span>
+    </div>
+    <div class="setting">
+      <span>Cashout window</span>
+      <span class="v"><input class="num-in" id="cashout-mo" type="number" inputmode="numeric" min="1" max="120" value="12" aria-label="cashout months" /> months</span>
+    </div>
   </section>
 
-  <!-- ========== II — FUTURE CUT DISCOUNT ========== -->
+  <!-- ========== THE DEAL ========== -->
   <section class="card card--featured">
-    <p class="num">II.</p>
-    <h2>Future Cut Discount</h2>
+    <p class="num">The Deal</p>
+    <h2>Future Cut</h2>
     <hr class="card-rule" />
 
-    <p class="deck">
-      <input class="num-in" id="fc-deck" type="number" inputmode="numeric" min="1" max="999" value="20" aria-label="future cut deck size" />
-      alters &times; $<input class="num-in" id="fc-rate" type="number" inputmode="numeric" min="0" max="999999" value="60" aria-label="future cut per-alter rate" />
-    </p>
-
-    <div class="setting">
-      <span>Resale per piece</span>
-      <span class="v">$<input class="num-in wide" id="resale" type="number" inputmode="numeric" min="0" max="999999" value="200" aria-label="resale price per piece" /></span>
-    </div>
-    <div class="setting">
-      <span>My cut on resale</span>
-      <span class="v"><input class="num-in" id="mycut" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="5" aria-label="my cut percent" />%</span>
+    <div class="slider-block">
+      <div class="slider-head">
+        <span class="slider-label">Discount</span>
+        <span class="slider-value" id="discount-out">40%</span>
+      </div>
+      <input class="range" id="discount" type="range" min="0" max="50" step="5" value="40" aria-label="discount percent" />
+      <div class="derived">
+        <span>Per alter <strong id="per-alter">$60</strong></span>
+        <span class="dot">&middot;</span>
+        <span>My resale cut <strong id="my-cut">2%</strong></span>
+      </div>
+      <p class="relation-note">My cut shrinks as the discount grows &mdash; 10% at 0% discount, 0% at 50%.</p>
     </div>
 
     <hr class="div" />
 
     <div class="row">
       <span class="lbl">Up Front</span>
-      <span class="amt right" id="fc-upfront">$1,200</span>
+      <span class="amt right" id="up-front">$1,200</span>
     </div>
     <div class="row">
       <span class="lbl">On Sale</span>
       <span class="right">
-        <span class="amt" id="fc-onsale">+$2,600</span>
-        <span class="formula" id="fc-formula">20 &times; ($200 &minus; $60 &minus; $10)</span>
+        <span class="amt" id="on-sale">+$2,720</span>
+        <span class="formula" id="formula">20 &times; ($200 &minus; $60 &minus; $4)</span>
       </span>
     </div>
 
     <div class="row row--total">
       <span class="lbl">Total</span>
-      <span class="amt" id="fc-total">$3,800</span>
+      <span class="amt" id="total">$3,920</span>
     </div>
 
     <p class="tag">Patient. Paid again on every sale.</p>
@@ -183,8 +211,8 @@
     <hr class="div div--cashout" />
     <p class="cashout-title">Cashout</p>
     <p class="cashout-body">
-      If unsold at <input class="num-in" id="cashout-mo" type="number" inputmode="numeric" min="1" max="120" value="12" aria-label="cashout months" /> months,
-      artist may collect the $<span id="cashout-gap">20</span> gap and convert to bulk. Future share waived.
+      If unsold at <span id="cashout-mo-echo">12</span> months, artist may collect the
+      $<span id="cashout-gap">40</span> gap and convert to bulk. Future share waived.
     </p>
   </section>
 
@@ -208,41 +236,52 @@ function val(id, fallback){
   return Number.isFinite(v) ? v : fallback;
 }
 
-function recalc(){
-  // Bulk
-  const bDeck  = Math.max(0, val("bulk-deck", 10));
-  const bRate  = Math.max(0, val("bulk-rate", 80));
-  const bTotal = bDeck * bRate;
-  $("bulk-total").textContent = fmt(bTotal);
-
-  // Future Cut
-  const fcDeck   = Math.max(0, val("fc-deck", 20));
-  const fcRate   = Math.max(0, val("fc-rate", 60));
-  const resale   = Math.max(0, val("resale", 200));
-  const myPct    = Math.max(0, Math.min(100, val("mycut", 5)));
-  const myAmt    = resale * myPct / 100;
-  const perSale  = Math.max(0, resale - fcRate - myAmt);
-  const fcUp     = fcDeck * fcRate;
-  const fcSale   = fcDeck * perSale;
-  const fcTotal  = fcUp + fcSale;
-
-  $("fc-upfront").textContent = fmt(fcUp);
-  $("fc-onsale").textContent  = "+" + fmt(fcSale);
-  $("fc-total").textContent   = fmt(fcTotal);
-
-  // Use Math.round for the formula breakdown so it reads cleanly
-  $("fc-formula").innerHTML =
-    fcDeck + " &times; ($" + Math.round(resale) +
-    " &minus; $" + Math.round(fcRate) +
-    " &minus; $" + Math.round(myAmt) + ")";
-
-  // Cashout
-  const gap = Math.max(0, bRate - fcRate);
-  $("cashout-gap").textContent = Math.round(gap);
+/* relationship: my cut % decreases linearly with discount.
+   10% at discount=0, 0% at discount=50.                       */
+function myCutPctFor(discount){
+  return Math.max(0, 10 * (1 - discount / 50));
 }
 
-document.querySelectorAll(".num-in").forEach(el => {
+function recalc(){
+  const base       = Math.max(0, val("base", 100));
+  const target     = Math.max(0, val("target", 200));
+  const deck       = Math.max(0, val("deck", 20));
+  const cashoutMo  = Math.max(1, val("cashout-mo", 12));
+  const discount   = Math.max(0, Math.min(50, val("discount", 40)));
+
+  const perAlter   = base * (1 - discount / 100);
+  const myPct      = myCutPctFor(discount);
+  const myAmt      = target * myPct / 100;
+  const perSale    = Math.max(0, target - perAlter - myAmt);
+
+  const upFront    = deck * perAlter;
+  const onSale     = deck * perSale;
+  const total      = upFront + onSale;
+  const cashoutGap = Math.max(0, base - perAlter);
+
+  // slider area
+  $("discount-out").textContent = Math.round(discount) + "%";
+  $("per-alter").textContent    = "$" + Math.round(perAlter).toLocaleString("en-US");
+  $("my-cut").textContent       = (Math.round(myPct * 10) / 10) + "%";
+
+  // totals
+  $("up-front").textContent = fmt(upFront);
+  $("on-sale").textContent  = "+" + fmt(onSale);
+  $("total").textContent    = fmt(total);
+  $("formula").innerHTML =
+    Math.round(deck) + " &times; ($" + Math.round(target) +
+    " &minus; $" + Math.round(perAlter) +
+    " &minus; $" + Math.round(myAmt) + ")";
+
+  // cashout
+  $("cashout-mo-echo").textContent = Math.round(cashoutMo);
+  $("cashout-gap").textContent     = Math.round(cashoutGap).toLocaleString("en-US");
+}
+
+document.querySelectorAll(".num-in, .range").forEach(el => {
   el.addEventListener("input", recalc);
+});
+document.querySelectorAll(".num-in").forEach(el => {
   el.addEventListener("focus", () => el.select());
 });
 
