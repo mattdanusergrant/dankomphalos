@@ -178,13 +178,13 @@
         <span class="slider-label">Discount</span>
         <span class="slider-value" id="discount-out">40%</span>
       </div>
-      <input class="range" id="discount" type="range" min="0" max="50" step="5" value="40" aria-label="discount percent" />
+      <input class="range" id="discount" type="range" min="0" max="100" step="5" value="40" aria-label="discount percent" />
       <div class="derived">
         <span>Per alter <strong id="per-alter">$60</strong></span>
         <span class="dot">&middot;</span>
-        <span>My resale cut <strong id="my-cut">2%</strong></span>
+        <span>My resale cut <strong id="my-cut">62%</strong></span>
       </div>
-      <p class="relation-note">My cut shrinks as the discount grows &mdash; 10% at 0% discount, 0% at 50%.</p>
+      <p class="relation-note">My cut shrinks as the discount grows &mdash; 100% at 0% discount, 5% at 100%.</p>
     </div>
 
     <hr class="div" />
@@ -237,9 +237,9 @@ function val(id, fallback){
 }
 
 /* relationship: my cut % decreases linearly with discount.
-   10% at discount=0, 0% at discount=50.                       */
+   100% at discount=0, 5% at discount=100.                     */
 function myCutPctFor(discount){
-  return Math.max(0, 10 * (1 - discount / 50));
+  return Math.max(0, 100 - 0.95 * discount);
 }
 
 function recalc(){
@@ -247,7 +247,7 @@ function recalc(){
   const target     = Math.max(0, val("target", 200));
   const deck       = Math.max(0, val("deck", 20));
   const cashoutMo  = Math.max(1, val("cashout-mo", 12));
-  const discount   = Math.max(0, Math.min(50, val("discount", 40)));
+  const discount   = Math.max(0, Math.min(100, val("discount", 40)));
 
   const perAlter   = base * (1 - discount / 100);
   const myPct      = myCutPctFor(discount);
