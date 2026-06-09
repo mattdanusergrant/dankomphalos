@@ -182,9 +182,9 @@
       <div class="derived">
         <span>My investment / alter <strong id="per-alter">$60</strong></span>
         <span class="dot">&middot;</span>
-        <span>My resale cut <strong id="my-cut">17%</strong></span>
+        <span>My resale cut <strong id="my-cut">13%</strong></span>
       </div>
-      <p class="relation-note">My cut shrinks as the discount grows &mdash; 25% at 0% discount, 5% at 100%.</p>
+      <p class="relation-note">My cut shrinks as the discount grows &mdash; 21% at 0% discount, 1% at 100%.</p>
     </div>
 
     <hr class="div" />
@@ -196,14 +196,14 @@
     <div class="row">
       <span class="lbl">Resale</span>
       <span class="right">
-        <span class="amt" id="on-sale">+$2,120</span>
-        <span class="formula" id="formula">20 &times; ($200 &minus; $60 &minus; $34)</span>
+        <span class="amt" id="on-sale">+$2,280</span>
+        <span class="formula" id="formula">20 &times; ($200 &minus; $60 &minus; $26)</span>
       </span>
     </div>
 
     <div class="row row--total">
       <span class="lbl">Total</span>
-      <span class="amt" id="total">$3,320</span>
+      <span class="amt" id="total">$3,480</span>
     </div>
 
     <p class="tag">Patient. Paid again on every sale.</p>
@@ -236,10 +236,10 @@ function val(id, fallback){
   return Number.isFinite(v) ? v : fallback;
 }
 
-/* relationship: my cut % steps from 25% at 0% discount to 5% at 100%.
+/* relationship: my cut % steps from 21% at 0% discount to 1% at 100%.
    Each +5% discount drops my cut by 1 point.                          */
 function myCutPctFor(discount){
-  return Math.max(0, 5 + (100 - discount) / 5);
+  return Math.max(0, 1 + (100 - discount) / 5);
 }
 
 function recalc(){
