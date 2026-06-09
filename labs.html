@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Feel Good Labs — Prototypes by Matt Grant</title>
+<meta name="description" content="A workbench of game prototypes. Stable builds here; bleeding edge on GitHub Pages." />
+<!-- #LLM-generated — prototype hub. Mobile-first. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0B090C; --paper:#15121A; --paper2:#1A1422; --ink:#E9E2D4; --muted:#938A82;
+    --line:#2A2430; --brass:#B8965A; --oxblood:#8A2433;
+    --display:'Cinzel','Marcellus SC','Cormorant Garamond',Georgia,serif;
+    --serif:'Cormorant Garamond','Iowan Old Style',Palatino,Georgia,serif;
+    --body:'EB Garamond',ui-serif,Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+       -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+       background-image:
+         radial-gradient(900px 480px at 50% -8%,rgba(138,36,51,.18),transparent 60%),
+         radial-gradient(700px 420px at 100% 110%,rgba(184,150,90,.08),transparent 55%)}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 64px}
+
+  /* brand */
+  .brand{display:flex;align-items:center;justify-content:center;gap:14px;padding:38px 0 4px}
+  .brand .mark{width:24px;height:24px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%,var(--brass) 0 30%,transparent 32%),
+               radial-gradient(circle at 60% 80%,var(--oxblood),#3A1018 70%);
+    box-shadow:inset 0 0 0 1px rgba(184,150,90,.55),0 0 12px rgba(184,150,90,.25)}
+  .brand .word{font-family:var(--display);font-weight:700;font-size:24px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink);line-height:1}
+
+  .kicker{text-align:center;font-family:var(--display);font-size:11px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--brass);margin:22px 0 0;font-weight:600}
+  h1{text-align:center;font-family:var(--serif);font-weight:600;
+    font-size:clamp(36px,7vw,56px);line-height:1.05;letter-spacing:.005em;
+    margin:14px 0 12px;text-shadow:0 1px 28px rgba(184,150,90,.16)}
+  .lede{max-width:560px;margin:0 auto 14px;text-align:center;color:var(--muted);font-size:17px}
+  .rule{width:60px;height:1px;background:var(--brass);opacity:.55;border:0;margin:24px auto 36px}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  @media (max-width:680px){.grid{grid-template-columns:1fr;gap:18px}}
+
+  /* card */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:3px;
+    padding:24px 22px 20px;display:flex;flex-direction:column;
+    transition:.18s;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(360px 180px at 20% 0%,rgba(184,150,90,.05),transparent 60%);
+    pointer-events:none}
+  .card:hover{border-color:rgba(184,150,90,.45);transform:translateY(-2px)}
+  .card .num{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--brass);
+    letter-spacing:.06em;margin:0 0 4px}
+  .card h2{font-family:var(--display);font-weight:700;font-size:22px;
+    text-transform:uppercase;letter-spacing:.14em;margin:0 0 10px;color:var(--ink);line-height:1.2}
+  .card p{margin:0 0 18px;color:var(--muted);font-size:15.5px;line-height:1.5;flex:1}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:auto}
+  .btn{font-family:var(--display);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    font-weight:600;text-decoration:none;padding:10px 16px;border-radius:2px;
+    border:1px solid var(--brass);color:var(--ink);background:rgba(184,150,90,.08);
+    transition:.15s;-webkit-tap-highlight-color:transparent}
+  .btn:hover{background:var(--brass);color:var(--bg)}
+  .btn.ghost{border-color:var(--line);background:transparent;color:var(--muted)}
+  .btn.ghost:hover{border-color:var(--brass);color:var(--ink);background:rgba(184,150,90,.05)}
+
+  /* footer */
+  .foot{margin:50px auto 0;padding-top:22px;border-top:1px solid var(--line);
+    text-align:center;color:var(--muted);font-size:13px;letter-spacing:.04em}
+  .foot a{color:var(--brass);text-decoration:none;border-bottom:1px solid transparent}
+  .foot a:hover{border-color:var(--brass)}
+  .foot .legend{display:block;margin-top:10px;font-family:var(--serif);font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand"><span class="mark" aria-hidden="true"></span><span class="word">Feel Good Labs</span></div>
+
+  <p class="kicker">A workbench of prototypes</p>
+  <h1>Small games, made out loud.</h1>
+  <p class="lede">Stable builds live here. Bleeding edge lives on GitHub Pages &mdash; new pushes go live within seconds.</p>
+  <hr class="rule" />
+
+  <div class="grid">
+
+    <article class="card">
+      <p class="num">i.</p>
+      <h2>Sigil Tactics</h2>
+      <p>Mobile-web tactical card-battler. Two sides, three heroes each, on a small grid. Cards add sidekicks, spells, and battlefield effects.</p>
+      <div class="actions">
+        <a class="btn" href="/sigil-tactics/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/sigil-tactics/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="num">ii.</p>
+      <h2>Ronin Survivor</h2>
+      <p>Horde-survival auto-battler in the spirit of Vampire Survivors. A lone afro&rsquo;d swordsman holds his ground on a blood-red road &mdash; you only move, the blade swings itself.</p>
+      <div class="actions">
+        <a class="btn" href="/ronin-survivor/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/ronin-survivor/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="num">iii.</p>
+      <h2>Ripping Packs</h2>
+      <p>Incremental clicker about cracking trading-card boosters, sorting the spill, and selling sets on a live market across thirty years of a fictional cryptid TCG.</p>
+      <div class="actions">
+        <a class="btn" href="/ripping-packs/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/ripping-packs/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="num">iv.</p>
+      <h2>Switchback TD</h2>
+      <p>Maze-building tower defence. Wind the path, hold the wave.</p>
+      <div class="actions">
+        <a class="btn" href="/switchback-td/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/switchback-td/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="num">v.</p>
+      <h2>Bloom Again</h2>
+      <p>Touch-first puzzle box. You can&rsquo;t move the figure &mdash; only change how the world is drawn until it carries itself home.</p>
+      <div class="actions">
+        <a class="btn" href="/bloom-again/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/bloom-again/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="num">vi.</p>
+      <h2>Baduk Blitz</h2>
+      <p>Speed Go on a small board. <em>Description placeholder &mdash; edit me.</em></p>
+      <div class="actions">
+        <a class="btn" href="/baduk-blitz/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/baduk-blitz/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="num">vii.</p>
+      <h2>Prism Pond</h2>
+      <p><em>Description placeholder &mdash; edit me.</em></p>
+      <div class="actions">
+        <a class="btn" href="/prism-pond/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/prism-pond/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="num">viii.</p>
+      <h2>Mosslings</h2>
+      <p><em>Description placeholder &mdash; edit me.</em></p>
+      <div class="actions">
+        <a class="btn" href="/mosslings/">Play</a>
+        <a class="btn ghost" href="https://mattdanusergrant.github.io/mosslings/" target="_blank" rel="noopener">Edge build &rarr;</a>
+      </div>
+    </article>
+
+  </div>
+
+  <footer class="foot">
+    Made by <a href="https://github.com/mattdanusergrant" target="_blank" rel="noopener">Matt Grant</a>
+    <span class="legend">Play &mdash; pinned stable build &nbsp;·&nbsp; Edge build &mdash; latest commit on main</span>
+  </footer>
+
+</div>
+</body>
+</html>
