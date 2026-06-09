@@ -154,12 +154,12 @@
       <span class="v">$<input class="num-in wide" id="base" type="number" inputmode="numeric" min="0" max="999999" value="100" aria-label="base commission rate" /> / alter</span>
     </div>
     <div class="setting">
-      <span>Target sale price</span>
+      <span>Target resale price</span>
       <span class="v">$<input class="num-in wide" id="target" type="number" inputmode="numeric" min="0" max="999999" value="200" aria-label="target sale price" /> / piece</span>
     </div>
     <div class="setting">
-      <span>Deck size</span>
-      <span class="v"><input class="num-in" id="deck" type="number" inputmode="numeric" min="1" max="999" value="20" aria-label="deck size" /> alters</span>
+      <span>Number of alters</span>
+      <span class="v"><input class="num-in" id="deck" type="number" inputmode="numeric" min="1" max="999" value="10" aria-label="number of alters" /></span>
     </div>
     <div class="setting">
       <span>Cashout window</span>
@@ -178,32 +178,32 @@
         <span class="slider-label">Discount</span>
         <span class="slider-value" id="discount-out">40%</span>
       </div>
-      <input class="range" id="discount" type="range" min="0" max="100" step="5" value="40" aria-label="discount percent" />
+      <input class="range" id="discount" type="range" min="30" max="100" step="5" value="40" aria-label="discount percent" />
       <div class="derived">
         <span>My investment / alter <strong id="per-alter">$60</strong></span>
         <span class="dot">&middot;</span>
         <span>My resale cut <strong id="my-cut">13%</strong></span>
       </div>
-      <p class="relation-note">My cut shrinks as the discount grows &mdash; 21% at 0% discount, 1% at 100%.</p>
+      <p class="relation-note">My cut shrinks as the discount grows &mdash; 15% at 30% discount, 1% at 100%.</p>
     </div>
 
     <hr class="div" />
 
     <div class="row">
       <span class="lbl">Up Front</span>
-      <span class="amt right" id="up-front">$1,200</span>
+      <span class="amt right" id="up-front">$600</span>
     </div>
     <div class="row">
       <span class="lbl">Resale</span>
       <span class="right">
-        <span class="amt" id="on-sale">+$2,280</span>
-        <span class="formula" id="formula">20 &times; ($200 &minus; $60 &minus; $26)</span>
+        <span class="amt" id="on-sale">+$1,140</span>
+        <span class="formula" id="formula">10 &times; ($200 &minus; $60 &minus; $26)</span>
       </span>
     </div>
 
     <div class="row row--total">
       <span class="lbl">Total</span>
-      <span class="amt" id="total">$3,480</span>
+      <span class="amt" id="total">$1,740</span>
     </div>
 
     <p class="tag">Patient. Paid again on every sale.</p>
@@ -247,7 +247,7 @@ function recalc(){
   const target     = Math.max(0, val("target", 200));
   const deck       = Math.max(0, val("deck", 20));
   const cashoutMo  = Math.max(1, val("cashout-mo", 12));
-  const discount   = Math.max(0, Math.min(100, val("discount", 40)));
+  const discount   = Math.max(30, Math.min(100, val("discount", 40)));
 
   const perAlter   = base * (1 - discount / 100);
   const myPct      = myCutPctFor(discount);
