@@ -11,9 +11,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --cream:#0B090C; --paper:#15121A; --ink:#E9E2D4; --muted:#938A82;
-    --line:#2A2430; --brass:#B8965A; --oxblood:#8A2433; --good:#6E9079;
-    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 40px rgba(0,0,0,.55);
+    /* Palette drawn from Viviane Freitas' painting — ember world on the
+       left, twilight world on the right, a turquoise stream between. */
+    --cream:#0C0A14; --paper:#181321; --paper2:#201829;
+    --ink:#ECE6F0; --muted:#9C90AC; --line:#2C2438;
+    /* ember half */
+    --ember:#D9633A; --oxblood:#8A2433; --brass:#E2A24E;
+    /* twilight half */
+    --teal:#43BCB0; --violet:#9A82D6; --moon:#CFE3EA;
+    --good:#43BCB0;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 40px rgba(0,0,0,.6);
     --display:'Cinzel','Marcellus SC','Cormorant Garamond',Georgia,serif;
     --serif:'Cormorant Garamond','Iowan Old Style',Palatino,Georgia,'Times New Roman',serif;
     --sans:'EB Garamond',ui-serif,Georgia,'Times New Roman',serif;
@@ -22,8 +29,12 @@
   html,body{margin:0;padding:0}
   body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;
        -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-       background-image:radial-gradient(1200px 600px at 50% -8%,rgba(138,36,51,.10),transparent 60%),
-                        radial-gradient(900px 500px at 100% 100%,rgba(184,150,90,.06),transparent 55%)}
+       background-attachment:fixed;
+       background-image:
+         radial-gradient(1100px 620px at 6% -6%,rgba(217,99,58,.14),transparent 58%),
+         radial-gradient(900px 520px at 0% 40%,rgba(138,36,51,.10),transparent 55%),
+         radial-gradient(1100px 640px at 100% 108%,rgba(67,188,176,.12),transparent 58%),
+         radial-gradient(900px 540px at 96% 70%,rgba(154,130,214,.10),transparent 55%)}
   a{color:inherit}
   img{max-width:100%;display:block}
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
@@ -36,9 +47,11 @@
          text-transform:uppercase;text-decoration:none;color:var(--ink);
          display:flex;align-items:center;gap:14px;line-height:1}
   .brand .mark{width:26px;height:26px;border-radius:50%;
-       background:radial-gradient(circle at 50% 38%,var(--brass) 0 28%,transparent 30%),
-                  conic-gradient(from 210deg,var(--oxblood),var(--brass),var(--oxblood));
-       box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),0 0 14px rgba(184,150,90,.25)}
+       background:radial-gradient(circle at 50% 46%,var(--moon) 0 16%,transparent 18%),
+                  linear-gradient(104deg,var(--ember) 0 40%,var(--oxblood) 46%,
+                                  #2a2342 49% 51%,var(--teal) 54%,var(--violet) 100%);
+       box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),
+                  0 0 12px rgba(226,162,78,.22),0 0 12px rgba(67,188,176,.18)}
   nav a{font-size:14px;letter-spacing:.04em;text-decoration:none;color:var(--muted);
         margin-left:26px;padding:6px 0;border-bottom:2px solid transparent}
   nav a:hover,nav a.active{color:var(--ink);border-color:var(--brass)}
@@ -48,14 +61,14 @@
   .hero{padding:120px 0 96px;text-align:center;border-bottom:1px solid var(--line);position:relative;
         min-height:78vh;display:flex;align-items:center;justify-content:center;overflow:hidden;
         background-image:
-          linear-gradient(180deg,rgba(11,9,12,.42) 0%,rgba(11,9,12,.18) 38%,rgba(11,9,12,.62) 100%),
+          linear-gradient(180deg,rgba(12,10,20,.46) 0%,rgba(12,10,20,.16) 36%,rgba(12,10,20,.72) 100%),
           url('assets/AlphaCollection_993_edit2.jpg');
         background-size:cover;background-position:center;background-repeat:no-repeat}
   .hero .wrap{position:relative;z-index:1}
   .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(38px,6.4vw,72px);
            line-height:1.06;margin:0 0 18px;letter-spacing:.005em;color:#F4ECD8;
            text-shadow:0 2px 22px rgba(0,0,0,.65),0 1px 2px rgba(0,0,0,.55)}
-  .hero p{max-width:600px;margin:0 auto 28px;color:#E9E2D4;font-size:18px;
+  .hero p{max-width:600px;margin:0 auto 28px;color:var(--moon);font-size:18px;
           text-shadow:0 1px 14px rgba(0,0,0,.7)}
   .hero .credit{position:absolute;left:0;right:0;bottom:18px;text-align:center;
                 font-size:12px;letter-spacing:.16em;text-transform:uppercase;
@@ -66,11 +79,11 @@
           text-shadow:0 1px 10px rgba(0,0,0,.65)}
   @media(max-width:560px){.hero{min-height:68vh;padding:88px 0 96px}}
   .btn{display:inline-block;font-size:14px;letter-spacing:.05em;text-decoration:none;
-       padding:13px 24px;border-radius:2px;border:1px solid var(--ink);background:var(--ink);
-       color:var(--cream);cursor:pointer;transition:.15s}
-  .btn:hover{background:transparent;color:var(--ink)}
-  .btn.ghost{background:transparent;color:var(--ink);margin-left:10px}
-  .btn.ghost:hover{background:var(--ink);color:var(--cream)}
+       padding:13px 24px;border-radius:2px;border:1px solid var(--brass);background:var(--brass);
+       color:#1A1206;cursor:pointer;transition:.15s}
+  .btn:hover{background:transparent;color:var(--brass);box-shadow:0 0 20px rgba(226,162,78,.22)}
+  .btn.ghost{background:transparent;color:var(--teal);border-color:var(--teal);margin-left:10px}
+  .btn.ghost:hover{background:rgba(67,188,176,.12);color:var(--moon);box-shadow:0 0 20px rgba(67,188,176,.2)}
 
   /* Sections */
   section.block{padding:64px 0}
@@ -179,6 +192,9 @@
  * ------------------------------------------------------------------ */
 const DATA = {
   artists: [
+    { id:"viviane", name:"Viviane Freitas", loc:"Brazil",
+      bio:"Painter of dual worlds — ember and twilight held in a single frame, joined by a thread of turquoise water. The dreamscape behind the home-page title is hers, and her palette runs through this whole site.",
+      links:{ instagram:"https://www.instagram.com/viviane_freitas_33/" } },
     { id:"vela",  name:"Vela Marchetti", loc:"Lisbon, PT",
       bio:"Oil-on-card miniaturist. Vela treats a 63×88mm card like a tiny canvas — layered glazes, gold leaf, and a patience that shows.",
       links:{ instagram:"#" } },
@@ -188,9 +204,6 @@ const DATA = {
     { id:"renza", name:"Renza Okonkwo", loc:"Lagos / London",
       bio:"Acrylic and mixed media. Portraits and pattern, heavy texture, colour you can feel from across the room.",
       links:{ instagram:"#" } },
-    { id:"viviane", name:"Viviane Freitas", loc:"",
-      bio:"Painter of dual worlds — ember and twilight, side by side. The dreamscape behind the home-page title is hers.",
-      links:{ instagram:"https://www.instagram.com/viviane_freitas_33/" } },
   ],
   pieces: [
     { id:"p1", title:"Gilded Heron",       artist:"vela",  type:"alter",    card:"alter of a Crane archetype card",
@@ -223,15 +236,25 @@ const artistById = id => DATA.artists.find(a => a.id === id);
 const piecesByArtist = id => DATA.pieces.filter(p => p.artist === id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-// deterministic placeholder gradient from a string seed
+// deterministic placeholder gradient from a string seed.
+// Hues are pulled from Viviane's painting so the placeholder gallery
+// reads as one body of work — ember reds/golds and twilight teals/violets.
 function hash(str){ let h=0; for(let i=0;i<str.length;i++) h=(h*31+str.charCodeAt(i))|0; return Math.abs(h); }
+const ART_PALETTE = [
+  ['#7E2130','#37111A'],  // oxblood ember
+  ['#C2532F','#4C160F'],  // burnt orange
+  ['#B07A2E','#3A2410'],  // lantern gold
+  ['#1E6E74','#0F2A33'],  // teal stream
+  ['#2C5E8C','#13243A'],  // dusk blue
+  ['#5B4A8C','#241B3A'],  // twilight violet
+];
 function artStyle(seed){
-  const h=hash(seed); const a=h%360, b=(a+38+h%60)%360;
-  return `background:linear-gradient(155deg,hsl(${a} 34% 20%),hsl(${b} 30% 9%))`;
+  const [a,b]=ART_PALETTE[hash(seed)%ART_PALETTE.length];
+  return `background:linear-gradient(152deg,${a},${b})`;
 }
 function avatarStyle(seed){
-  const h=hash(seed); const a=h%360;
-  return `background:radial-gradient(circle at 35% 30%,hsl(${a} 32% 34%),hsl(${(a+40)%360} 30% 12%))`;
+  const [a,b]=ART_PALETTE[hash(seed+"·")%ART_PALETTE.length];
+  return `background:radial-gradient(circle at 35% 30%,${a},${b})`;
 }
 const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
 
@@ -258,11 +281,12 @@ function pieceCard(p){
 
 function artistCard(a){
   const n = piecesByArtist(a.id).length;
+  const meta = [a.loc, n ? `${n} ${n===1?'piece':'pieces'}` : ''].filter(Boolean).join(' · ');
   return `<a class="artist" href="#/artist/${a.id}">
       <div class="avatar" style="${avatarStyle(a.id)}"></div>
       <div>
         <h3>${esc(a.name)}</h3>
-        <p class="loc">${esc(a.loc)} · ${n} ${n===1?'piece':'pieces'}</p>
+        ${meta ? `<p class="loc">${esc(meta)}</p>` : ''}
         <p>${esc(a.bio)}</p>
       </div>
     </a>`;
