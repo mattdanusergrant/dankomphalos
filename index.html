@@ -137,6 +137,9 @@
   .profile h1{font-family:var(--serif);font-weight:600;font-size:52px;margin:0 0 4px}
   .profile .loc{color:var(--muted);margin:0 0 10px}
   .profile p{margin:0;color:var(--muted);max-width:560px}
+  .profile .links{margin-top:12px;font-size:14px;letter-spacing:.04em}
+  .profile .links a{color:var(--brass);text-decoration:none;border-bottom:1px solid transparent}
+  .profile .links a:hover{border-color:var(--brass)}
   @media(max-width:560px){.profile{flex-direction:column;text-align:center;align-items:center}}
 
   footer{border-top:1px solid var(--line);background:var(--paper);margin-top:40px}
@@ -185,6 +188,9 @@ const DATA = {
     { id:"renza", name:"Renza Okonkwo", loc:"Lagos / London",
       bio:"Acrylic and mixed media. Portraits and pattern, heavy texture, colour you can feel from across the room.",
       links:{ instagram:"#" } },
+    { id:"viviane", name:"Viviane Freitas", loc:"",
+      bio:"Painter of dual worlds — ember and twilight, side by side. The dreamscape behind the home-page title is hers.",
+      links:{ instagram:"https://www.instagram.com/viviane_freitas_33/" } },
   ],
   pieces: [
     { id:"p1", title:"Gilded Heron",       artist:"vela",  type:"alter",    card:"alter of a Crane archetype card",
@@ -288,7 +294,7 @@ function viewHome(){
       <a class="btn" href="#/alters">Browse the work</a>
       <a class="btn ghost" href="#/artists">Meet the artists</a>
     </div>
-    <p class="credit">Painting by <a href="https://www.instagram.com/viviane_freitas_33/" target="_blank" rel="noopener">Viviane Freitas</a></p>
+    <p class="credit">Painting by <a href="#/artist/viviane">Viviane Freitas</a></p>
   </section>
 
   <section class="block"><div class="wrap">
@@ -319,13 +325,16 @@ function viewArtist(id){
   const a = artistById(id);
   if(!a) return viewNotFound();
   const work = piecesByArtist(id);
+  const links = a.links && a.links.instagram && a.links.instagram !== "#"
+    ? `<p class="links"><a href="${esc(a.links.instagram)}" target="_blank" rel="noopener">Instagram ↗</a></p>` : "";
   return `<div class="wrap">
     <div class="profile">
       <div class="avatar" style="${avatarStyle(a.id)}"></div>
       <div>
         <h1>${esc(a.name)}</h1>
-        <p class="loc">${esc(a.loc)}</p>
+        ${a.loc ? `<p class="loc">${esc(a.loc)}</p>` : ""}
         <p>${esc(a.bio)}</p>
+        ${links}
       </div>
     </div>
     <a class="back" href="#/artists">← All artists</a>
