@@ -45,17 +45,19 @@
   .bar{display:flex;align-items:center;justify-content:space-between;height:68px}
   .brand{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.16em;
          text-transform:uppercase;text-decoration:none;color:var(--ink);
-         display:flex;align-items:center;gap:14px;line-height:1}
+         display:flex;align-items:center;gap:14px;line-height:1;white-space:nowrap}
   .brand .mark{width:26px;height:26px;border-radius:50%;
        background:radial-gradient(circle at 50% 46%,var(--moon) 0 16%,transparent 18%),
                   linear-gradient(104deg,var(--ember) 0 40%,var(--oxblood) 46%,
                                   #2a2342 49% 51%,var(--teal) 54%,var(--violet) 100%);
        box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),
                   0 0 12px rgba(226,162,78,.22),0 0 12px rgba(67,188,176,.18)}
+  .brand .sfx{font-size:.72em;font-weight:600;letter-spacing:.1em;color:var(--brass)}
   nav a{font-size:14px;letter-spacing:.04em;text-decoration:none;color:var(--muted);
         margin-left:26px;padding:6px 0;border-bottom:2px solid transparent}
   nav a:hover,nav a.active{color:var(--ink);border-color:var(--brass)}
-  @media(max-width:560px){nav a{margin-left:16px;font-size:13px}.brand{font-size:15px;letter-spacing:.12em}}
+  @media(max-width:560px){nav a{margin-left:16px;font-size:13px}.brand{font-size:14px;letter-spacing:.08em;gap:9px}}
+  @media(max-width:380px){.brand{font-size:12px;letter-spacing:.04em}.brand .sfx{font-size:.66em}}
 
   /* Hero */
   .hero{padding:120px 0 96px;text-align:center;border-bottom:1px solid var(--line);position:relative;
@@ -166,7 +168,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#/"><span class="mark"></span>Dank Omphalos Arthouse</a>
+    <a class="brand" href="#/"><span class="mark"></span><span class="wm">Dank Omphalos<span class="sfx"> Arthouse</span></span></a>
     <nav id="nav">
       <a href="#/alters">Alters</a>
       <a href="#/artists">Artists</a>
