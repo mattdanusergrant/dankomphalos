@@ -46,7 +46,7 @@
   .brand{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.16em;
          text-transform:uppercase;text-decoration:none;color:var(--ink);
          display:flex;align-items:center;gap:14px;line-height:1;white-space:nowrap}
-  .brand .mark{width:26px;height:26px;border-radius:50%;
+  .brand .mark{width:26px;height:26px;border-radius:50%;transition:opacity .5s ease;
        background:url('assets/dankomphalosicon.jpg') center/cover;
        box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),
                   0 0 12px rgba(226,162,78,.22),0 0 12px rgba(67,188,176,.18)}
@@ -61,7 +61,7 @@
         min-height:78vh;display:flex;align-items:center;justify-content:center;overflow:hidden;
         background-image:
           linear-gradient(180deg,rgba(12,10,20,.48) 0%,rgba(12,10,20,.20) 30%,rgba(12,10,20,.55) 62%,rgba(12,10,20,.92) 100%),
-          var(--hero-img,url('assets/AlphaCollection_993_edit2.jpg'));
+          url('assets/AlphaCollection_993_edit2.jpg');
         background-size:cover;background-position:center;background-repeat:no-repeat}
   .hero .wrap{position:relative;z-index:1}
   .hero h1{font-family:var(--display);font-weight:600;font-size:clamp(38px,6.4vw,72px);
@@ -191,12 +191,6 @@
  * Add piece.image = "assets/your-photo.jpg" to use a real photo instead of
  * the generated placeholder art. (Drop the file in assets/ — it ships with the site.)
  * ------------------------------------------------------------------ */
-/* Hero backgrounds — one is picked at random per visit. Add/remove options here. */
-const HEROES = [
-  { image:"assets/AlphaCollection_993_edit2.jpg", credit:'Painting by <a href="#/artist/viviane">Viviane Freitas</a>' },
-  { image:"assets/dankwizard.jpg", credit:"" },
-];
-
 const DATA = {
   artists: [
     { id:"viviane", name:"Viviane Freitas", loc:"Brazil",
@@ -316,9 +310,8 @@ I'd like to enquire about "${p.title}" by ${a?a.name:''}.
 /* ----------------------------- views ----------------------------- */
 function viewHome(){
   const featured = DATA.pieces.filter(p=>p.status==='available').slice(0,3);
-  const hero = HEROES[Math.floor(Math.random()*HEROES.length)];
   return `
-  <section class="hero" style="--hero-img:url('${hero.image}')">
+  <section class="hero">
     <div class="wrap">
       <div class="kicker">Artist-first · Slow and steady</div>
       <h1>DANK OMPHALOS ARTHOUSE</h1>
@@ -326,7 +319,7 @@ function viewHome(){
       <a class="btn" href="#/alters">Browse the work</a>
       <a class="btn ghost" href="#/artists">Meet the artists</a>
     </div>
-    ${hero.credit?`<p class="credit">${hero.credit}</p>`:''}
+    <p class="credit">Painting by <a href="#/artist/viviane">Viviane Freitas</a></p>
   </section>
 
   <section class="block"><div class="wrap">
@@ -436,6 +429,23 @@ function route(){
 }
 window.addEventListener("hashchange", route);
 route();
+
+/* Topline mark — slowly cycles through small crops of the Viviane painting.
+   Add more crops to assets/ and list them here. */
+const ICONS = [
+  "assets/dankomphalosicon.jpg",
+  "assets/dankwizard.jpg",
+];
+(function cycleMark(){
+  const el = document.querySelector(".brand .mark");
+  if(!el || ICONS.length < 2) return;
+  let i = 0;
+  setInterval(()=>{
+    i = (i+1) % ICONS.length;
+    el.style.opacity = "0";
+    setTimeout(()=>{ el.style.backgroundImage = `url('${ICONS[i]}')`; el.style.opacity = "1"; }, 500);
+  }, 5000);
+})();
 </script>
 </body>
 </html>
