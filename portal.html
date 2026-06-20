@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dank Omphalos Arthouse — Artist Portal</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:wght@400;500;600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--cream:#0C0A14;--paper:#181321;--ink:#ECE6F0;--muted:#9C90AC;--line:#2C2438;
+        --oxblood:#8A2433;--brass:#E2A24E;--good:#43BCB0;
+        --display:'Cinzel',Georgia,serif;--serif:'Cormorant Garamond',Georgia,serif;--sans:'EB Garamond',Georgia,serif}
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;
+       background-image:radial-gradient(1100px 620px at 6% -6%,rgba(217,99,58,.12),transparent 58%),
+                        radial-gradient(1000px 600px at 100% 108%,rgba(67,188,176,.10),transparent 58%);background-attachment:fixed}
+  a{color:inherit} .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  header{position:sticky;top:0;z-index:20;background:rgba(11,9,12,.82);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+         text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:12px;white-space:nowrap}
+  .brand .mark{width:24px;height:24px;border-radius:50%;background:url('assets/dankomphalosicon.jpg') center/cover;
+       box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),0 0 12px rgba(226,162,78,.22)}
+  section.block{padding:48px 0}
+  .head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:22px}
+  .head h2{font-family:var(--serif);font-weight:500;font-size:24px;margin:0}
+  .lead{max-width:640px;color:var(--muted);margin:0 0 24px}
+  .portal-head{padding-top:40px;margin:0 0 4px}
+  .portal-head h2{font-family:var(--serif);font-weight:500;font-size:30px;margin:0}
+  .btn{display:inline-block;font-size:14px;letter-spacing:.05em;text-decoration:none;font-weight:500;padding:13px 22px;border-radius:2px;
+       border:1px solid var(--brass);background:var(--brass);color:#1A1206;cursor:pointer;font-family:var(--sans)}
+  .btn.ghost{background:transparent;color:var(--brass)}
+  input[type=email]{width:100%;padding:13px 14px;margin:0 0 12px;background:var(--paper);border:1px solid var(--line);
+       border-radius:3px;color:var(--ink);font-family:var(--sans);font-size:16px}
+  .ok{color:var(--good)}
+  .err{color:#E8909C;background:rgba(138,36,51,.14);border:1px solid var(--oxblood);border-radius:4px;padding:14px 16px;white-space:pre-wrap;font-size:13px;font-family:ui-monospace,monospace}
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:26px 0 32px}
+  @media(max-width:680px){.summary{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:15px 17px}
+  .stat .n{font-family:var(--serif);font-size:25px;margin:0 0 3px}.stat .l{font-size:12px;color:var(--muted);margin:0}
+  .stat.hl{border-color:var(--brass)}.stat.hl .n{color:var(--brass)}
+  .ledger{width:100%;border-collapse:collapse;font-size:14px;margin:0 0 14px}
+  .ledger th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding:0 10px 10px}
+  .ledger td{border-bottom:1px solid var(--line);padding:12px 10px;vertical-align:top}.ledger tr:last-child td{border-bottom:0}
+  .ledger .owed{color:var(--good);font-family:var(--serif);font-size:16px}.muted{color:var(--muted)}
+  .sub{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  footer{border-top:1px solid var(--line);background:var(--paper);margin-top:40px}
+  footer .wrap{padding:24px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="/"><span class="mark"></span>Dank Omphalos Arthouse</a>
+  <a class="btn ghost" id="signout" href="#" style="display:none">Sign out</a>
+</div></header>
+<main id="app"><div class="wrap"><p class="lead" style="padding-top:40px">Loading…</p></div></main>
+<footer><div class="wrap">Artist Portal · Dank Omphalos Arthouse</div></footer>
+
+<script type="module">
+/* ===========================================================================
+   Artist Portal — Neon Auth (Better Auth, magic link) + Neon Data API.
+   Standalone on purpose: separate from the marketing index.html so untested
+   auth can never break the live gallery. Errors render on-page for debugging.
+
+   SETUP: add this page's URL to Neon Auth "trusted origins / redirect URLs",
+   and (if needed) paste the publishable client key below.
+   =========================================================================== */
+const CONFIG = {
+  dataApiUrl: "https://ep-red-sea-a6sf5y3d.apirest.us-west-2.aws.neon.tech/neondb/rest/v1",
+  authUrl:    "https://ep-red-sea-a6sf5y3d.neonauth.us-west-2.aws.neon.tech/neondb/auth",
+  publishableKey: ""   // <<< paste your Neon Auth publishable client key (if your setup needs it)
+};
+
+const app = document.getElementById("app");
+const signoutBtn = document.getElementById("signout");
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const num = v => Number(v)||0;
+const money = n => "£"+Math.round(num(n)).toLocaleString("en-GB");
+const fmtDate = d => d ? new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}) : "—";
+const cap = s => (s||"").charAt(0).toUpperCase()+(s||"").slice(1);
+const fail = (msg) => { signoutBtn.style.display="none"; app.innerHTML =
+  `<div class="wrap" style="padding-top:40px"><h2 style="font-family:var(--serif);font-weight:500">This needs a tweak</h2>
+   <p class="lead">Paste this to your developer and it'll be a quick fix:</p><div class="err">${esc(msg)}</div></div>`; };
+
+let authClient = null;
+async function loadAuth(){
+  const [core, plugins] = await Promise.all([
+    import("https://esm.sh/better-auth/client"),
+    import("https://esm.sh/better-auth/client/plugins")
+  ]);
+  authClient = core.createAuthClient({ baseURL: CONFIG.authUrl, plugins: [ plugins.magicLinkClient() ] });
+}
+
+// Neon Data API needs a JWT. Better Auth issues one — exact accessor verified on first live test.
+async function getToken(){
+  const s = await authClient.getSession();
+  const d = s && (s.data || s);
+  return (d && (d.token || (d.session && (d.session.token || d.session.jwt)))) || "";
+}
+
+async function fetchPieces(){
+  const token = await getToken();
+  const headers = { "Authorization": "Bearer " + token };
+  if (CONFIG.publishableKey) headers["apikey"] = CONFIG.publishableKey;
+  const res = await fetch(CONFIG.dataApiUrl + "/artist_pieces?select=*", { headers });
+  if (!res.ok) throw new Error("Data API " + res.status + ": " + (await res.text()).slice(0,400));
+  return res.json();
+}
+
+function renderLogin(sent){
+  signoutBtn.style.display = "none";
+  app.innerHTML = `<section class="block"><div class="wrap" style="max-width:460px">
+    <div class="portal-head"><h2>Artist Portal</h2></div>
+    <p class="lead">See your stock with Dank Omphalos — what's held for you, what you're owed, and how long each piece has been here.</p>
+    ${ sent
+      ? `<p class="ok">Check your inbox — we've sent you a sign-in link. Open it on this device.</p>`
+      : `<form id="login"><input id="email" type="email" required placeholder="you@email.com" autocomplete="email" />
+         <button class="btn" type="submit">Email me a sign-in link</button></form>` }
+  </div></section>`;
+  const f = document.getElementById("login");
+  if (f) f.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const btn = f.querySelector("button"); btn.textContent = "Sending…"; btn.disabled = true;
+    try {
+      await authClient.signIn.magicLink({ email, callbackURL: location.origin + location.pathname });
+      renderLogin(true);
+    } catch(err){ console.error(err); fail("Magic-link sign-in failed:\n" + (err && err.message || err)); }
+  });
+}
+
+async function renderDashboard(user){
+  signoutBtn.style.display = "";
+  app.innerHTML = `<div class="wrap"><p class="lead" style="padding-top:40px">Loading your account…</p></div>`;
+  let rows;
+  try { rows = await fetchPieces(); }
+  catch(err){ console.error(err); return fail("Couldn't load your pieces from the Data API:\n" + (err && err.message || err)
+     + "\n\n(Most often the token step or RLS — confirm the artist's user_id is linked.)"); }
+  if (!Array.isArray(rows)) return fail("Data API returned an unexpected shape:\n" + JSON.stringify(rows).slice(0,400));
+
+  const held = rows.filter(r=>r.status!=="sold");
+  const settled = rows.filter(r=>r.status==="sold");
+  const totRetail = held.reduce((s,r)=>s+num(r.list_price),0);
+  const totAdvance = held.reduce((s,r)=>s+num(r.advance),0);
+  const cashOut = held.reduce((s,r)=>s+num(r.owed_on_sale),0);
+  const who = esc((user && (user.name || user.email)) || "Your account");
+
+  const heldRows = held.map(r=>`<tr>
+      <td>${esc(r.title)}<br><span class="sub">${r.kind==="alter"?"Alter":"Original"}</span></td>
+      <td>${fmtDate(r.date_added)}</td><td class="muted">${num(r.days_held)} days</td>
+      <td>${esc(cap(r.status))}</td><td>${money(r.list_price)}</td>
+      <td class="muted">${money(r.advance)}</td><td class="owed">${money(r.owed_on_sale)}</td></tr>`).join("");
+
+  app.innerHTML = `<div class="wrap">
+    <div class="portal-head"><h2>${who} — your account</h2></div>
+    <p class="lead">You were paid an advance up front on each piece. When one sells you receive the rest — the lion's share of retail. No clock, no auction: your work waits for the right buyer. Want your money sooner? Ask us about a cash-out anytime.</p>
+    <div class="summary">
+      <div class="stat"><p class="n">${held.length}</p><p class="l">Pieces held</p></div>
+      <div class="stat"><p class="n">${money(totRetail)}</p><p class="l">Retail value held</p></div>
+      <div class="stat"><p class="n">${money(totAdvance)}</p><p class="l">Advances received</p></div>
+      <div class="stat hl"><p class="n">${money(cashOut)}</p><p class="l">Cash-out available now</p></div>
+    </div>
+    <div class="head"><h2 style="font-size:22px">Your stock with Omphalos</h2></div>
+    ${ held.length ? `<table class="ledger"><tr><th>Piece</th><th>Added</th><th>Held</th><th>Status</th><th>List</th><th>Advance</th><th>Owed on sale</th></tr>${heldRows}</table>` : `<p class="lead">Nothing held right now.</p>` }
+    ${ settled.length ? `<div class="head" style="margin-top:30px"><h2 style="font-size:22px">Settled</h2></div>
+       <table class="ledger"><tr><th>Piece</th><th>Added</th><th>List</th><th>Paid in full</th></tr>
+       ${settled.map(r=>`<tr><td>${esc(r.title)}</td><td>${fmtDate(r.date_added)}</td><td>${money(r.list_price)}</td><td class="owed">${money(r.artist_share_value)}</td></tr>`).join("")}</table>` : "" }
+    <p class="muted" style="font-size:12px;margin-top:24px">Live from your Neon account · figures per your agreement.</p>
+  </div>`;
+}
+
+signoutBtn.addEventListener("click", async (e)=>{ e.preventDefault(); try{ await authClient.signOut(); }catch(_){ } renderLogin(); });
+
+async function init(){
+  try { await loadAuth(); }
+  catch(e){ console.error(e); return fail("Couldn't load the auth library from the CDN (better-auth import):\n"
+     + (e && e.message || e) + "\n\n(We may need to pin a version or change the esm.sh path.)"); }
+  let session;
+  try { session = await authClient.getSession(); }
+  catch(e){ console.error(e); return fail("auth.getSession() failed:\n" + (e && e.message || e)); }
+  const d = session && (session.data || session);
+  const user = d && d.user;
+  if (user) renderDashboard(user); else renderLogin();
+}
+init();
+</script>
+</body>
+</html>
