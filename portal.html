@@ -114,6 +114,7 @@ function renderLogin(mode){
   app.innerHTML = `<section class="block"><div class="wrap" style="max-width:440px">
     <div class="portal-head"><h2>Artist Portal</h2></div>
     <p class="lead">See your stock with Dank Omphalos — what's held for you, what you're owed, and how long each piece has been here.</p>
+    <p class="muted" style="font-size:13px;margin:-12px 0 18px">Invite-only — use the email Dank Omphalos has on file for you.</p>
     <form id="login">
       <input id="email" type="email" required placeholder="you@email.com" autocomplete="email" />
       <input id="password" type="password" required minlength="8" placeholder="${isUp?"Choose a password (8+ characters)":"Password"}" autocomplete="${isUp?"new-password":"current-password"}" />
