@@ -91,12 +91,18 @@ async function loadAuth(){
 
 // Neon Data API needs a JWT. Better Auth issues one — exact accessor verified on first live test.
 async function getToken(){
-  try { const s = await authClient.getSession(); const d = s && (s.data || s);
-    const t = (d && (d.token || (d.session && (d.session.token || d.session.jwt)))); if (t) return t; } catch(_){}
-  // Better Auth jwt plugin: trade the session cookie for a short-lived JWT for the Data API
-  try { const r = await fetch(CONFIG.authUrl + "/token", { credentials: "include" });
-    if (r.ok){ const j = await r.json(); return j.token || j.jwt || ""; } } catch(_){}
-  return "";
+  // The Data API needs a signed JWT (verified via the project's JWKS) — NOT the
+  // opaque Better Auth session token. The JWT plugin mints one at /token.
+  const r = await fetch(CONFIG.authUrl + "/token", { credentials: "include" });
+  const hdr = r.headers.get("set-auth-jwt");
+  const body = await r.text();
+  console.log("/token", r.status, "header:", hdr, "body:", body.slice(0,200));
+  if (hdr) return hdr;
+  if (!r.ok) throw new Error("Auth /token " + r.status + ": " + body.slice(0,300));
+  let j = {}; try { j = JSON.parse(body); } catch(_){}
+  const t = j.token || j.jwt || j.access_token || "";
+  if (!t) throw new Error("Auth /token returned no JWT. Body: " + body.slice(0,300));
+  return t;
 }
 
 async function fetchPieces(){
