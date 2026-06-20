@@ -85,18 +85,18 @@ const fail = (msg) => { signoutBtn.style.display="none"; app.innerHTML =
 
 let authClient = null;
 async function loadAuth(){
-  const [core, plugins] = await Promise.all([
-    import("https://esm.sh/better-auth/client"),
-    import("https://esm.sh/better-auth/client/plugins")
-  ]);
-  authClient = core.createAuthClient({ baseURL: CONFIG.authUrl, plugins: [ plugins.magicLinkClient() ] });
+  const core = await import("https://esm.sh/better-auth/client");
+  authClient = core.createAuthClient({ baseURL: CONFIG.authUrl });
 }
 
 // Neon Data API needs a JWT. Better Auth issues one — exact accessor verified on first live test.
 async function getToken(){
-  const s = await authClient.getSession();
-  const d = s && (s.data || s);
-  return (d && (d.token || (d.session && (d.session.token || d.session.jwt)))) || "";
+  try { const s = await authClient.getSession(); const d = s && (s.data || s);
+    const t = (d && (d.token || (d.session && (d.session.token || d.session.jwt)))); if (t) return t; } catch(_){}
+  // Better Auth jwt plugin: trade the session cookie for a short-lived JWT for the Data API
+  try { const r = await fetch(CONFIG.authUrl + "/token", { credentials: "include" });
+    if (r.ok){ const j = await r.json(); return j.token || j.jwt || ""; } } catch(_){}
+  return "";
 }
 
 async function fetchPieces(){
@@ -108,31 +108,44 @@ async function fetchPieces(){
   return res.json();
 }
 
-function renderLogin(sent){
+function renderLogin(mode){
   signoutBtn.style.display = "none";
-  app.innerHTML = `<section class="block"><div class="wrap" style="max-width:460px">
+  const isUp = mode === "up";
+  app.innerHTML = `<section class="block"><div class="wrap" style="max-width:440px">
     <div class="portal-head"><h2>Artist Portal</h2></div>
     <p class="lead">See your stock with Dank Omphalos — what's held for you, what you're owed, and how long each piece has been here.</p>
-    ${ sent
-      ? `<p class="ok">Check your inbox — we've sent you a sign-in link. Open it on this device.</p>`
-      : `<form id="login"><input id="email" type="email" required placeholder="you@email.com" autocomplete="email" />
-         <button class="btn" type="submit">Email me a sign-in link</button></form>` }
+    <form id="login">
+      <input id="email" type="email" required placeholder="you@email.com" autocomplete="email" />
+      <input id="password" type="password" required minlength="8" placeholder="${isUp?"Choose a password (8+ characters)":"Password"}" autocomplete="${isUp?"new-password":"current-password"}" />
+      <button class="btn" type="submit">${isUp?"Create my login":"Sign in"}</button>
+    </form>
+    <p class="muted" style="font-size:13px;margin-top:14px">${isUp?`Already set up? <a href="#" id="toggle">Sign in</a>`:`First time here? <a href="#" id="toggle">Create your login</a>`}</p>
+    <div id="msg" style="margin-top:14px"></div>
   </div></section>`;
-  const f = document.getElementById("login");
-  if (f) f.addEventListener("submit", async (e)=>{
+  document.getElementById("toggle").addEventListener("click",(e)=>{ e.preventDefault(); renderLogin(isUp?"in":"up"); });
+  document.getElementById("login").addEventListener("submit", async (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value.trim();
-    const btn = f.querySelector("button"); btn.textContent = "Sending…"; btn.disabled = true;
+    const password = document.getElementById("password").value;
+    const btn = e.target.querySelector("button"); const orig = btn.textContent; btn.textContent="…"; btn.disabled = true;
+    const msg = document.getElementById("msg");
     try {
-      const res = await authClient.signIn.magicLink({ email, callbackURL: location.origin + location.pathname });
-      console.log("magicLink response:", res);
-      if (res && res.error) { btn.textContent="Email me a sign-in link"; btn.disabled=false;
-        return fail("Neon Auth rejected the magic-link request:\n" + JSON.stringify(res.error, null, 2)
-          + "\n\nUsual causes: the magic-link plugin isn't enabled on the project, email sending isn't configured, or this URL isn't a trusted origin."); }
-      renderLogin(true);
-    } catch(err){ console.error(err); fail("Magic-link request threw:\n" + (err && (err.message || err.stack) || err)
-      + "\n\n(A CORS/network error here usually means this page's URL isn't in Neon Auth's trusted origins.)"); }
+      const res = isUp
+        ? await authClient.signUp.email({ email, password, name: email.split("@")[0] })
+        : await authClient.signIn.email({ email, password });
+      console.log(isUp?"signUp.email":"signIn.email", res);
+      if (res && res.error){ btn.textContent=orig; btn.disabled=false;
+        msg.innerHTML = `<div class="err">${esc(res.error.message || JSON.stringify(res.error))}</div>`; return; }
+      await afterAuth();
+    } catch(err){ console.error(err); btn.textContent=orig; btn.disabled=false;
+      msg.innerHTML = `<div class="err">${esc(err && (err.message||err.stack) || String(err))}\n\n(A CORS/network error means this page's URL isn't a trusted origin yet.)</div>`; }
   });
+}
+
+async function afterAuth(){
+  let s; try { s = await authClient.getSession(); } catch(e){ return fail("getSession failed:\n"+(e&&e.message||e)); }
+  const d = s && (s.data || s); const user = d && d.user;
+  if (user) renderDashboard(user); else renderLogin("in");
 }
 
 async function renderDashboard(user){
@@ -175,7 +188,7 @@ async function renderDashboard(user){
   </div>`;
 }
 
-signoutBtn.addEventListener("click", async (e)=>{ e.preventDefault(); try{ await authClient.signOut(); }catch(_){ } renderLogin(); });
+signoutBtn.addEventListener("click", async (e)=>{ e.preventDefault(); try{ await authClient.signOut(); }catch(_){ } renderLogin("in"); });
 
 async function init(){
   try { await loadAuth(); }
@@ -186,7 +199,7 @@ async function init(){
   catch(e){ console.error(e); return fail("auth.getSession() failed:\n" + (e && e.message || e)); }
   const d = session && (session.data || session);
   const user = d && d.user;
-  if (user) renderDashboard(user); else renderLogin();
+  if (user) renderDashboard(user); else renderLogin("in");
 }
 init();
 </script>
