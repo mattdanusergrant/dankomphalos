@@ -124,9 +124,14 @@ function renderLogin(sent){
     const email = document.getElementById("email").value.trim();
     const btn = f.querySelector("button"); btn.textContent = "Sending…"; btn.disabled = true;
     try {
-      await authClient.signIn.magicLink({ email, callbackURL: location.origin + location.pathname });
+      const res = await authClient.signIn.magicLink({ email, callbackURL: location.origin + location.pathname });
+      console.log("magicLink response:", res);
+      if (res && res.error) { btn.textContent="Email me a sign-in link"; btn.disabled=false;
+        return fail("Neon Auth rejected the magic-link request:\n" + JSON.stringify(res.error, null, 2)
+          + "\n\nUsual causes: the magic-link plugin isn't enabled on the project, email sending isn't configured, or this URL isn't a trusted origin."); }
       renderLogin(true);
-    } catch(err){ console.error(err); fail("Magic-link sign-in failed:\n" + (err && err.message || err)); }
+    } catch(err){ console.error(err); fail("Magic-link request threw:\n" + (err && (err.message || err.stack) || err)
+      + "\n\n(A CORS/network error here usually means this page's URL isn't in Neon Auth's trusted origins.)"); }
   });
 }
 
