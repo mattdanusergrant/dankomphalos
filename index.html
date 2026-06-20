@@ -442,7 +442,7 @@ function viewPiece(id){
 function viewPortalLogin(){
   return `<section class="block"><div class="wrap" style="max-width:580px">
     <div class="portal-head"><h2>Artist Portal</h2><span class="preview">Preview · demo data</span></div>
-    <p class="lead">Your private view of everything Dank Omphalos is holding for you — current stock, what you're still owed, and how long each piece has been with us. A secure login lands with the real version; for now, pick a name to preview the dashboard.</p>
+    <p class="lead">Your private view of everything Dank Omphalos is holding for you — current stock, what you're still owed, and how long each piece has been with us. A secure login (via Neon) lands with the real version; for now, pick a name to preview the dashboard.</p>
     <div class="portal-login">
       ${DATA.artists.map(a=>`<a class="btn ghost" href="#/portal/${a.id}">Sign in as ${esc(a.name)}</a>`).join("")}
     </div>
