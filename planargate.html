@@ -116,6 +116,12 @@ async function getToken(){
   return t;
 }
 
+// Decode a JWT payload (no verification — just to read claims like `sub` for debugging).
+function jwtPayload(t){
+  try { return JSON.parse(atob(String(t).split(".")[1].replace(/-/g,"+").replace(/_/g,"/"))); }
+  catch(_){ return {}; }
+}
+
 // One door to the Data API. Adds the JWT (+ optional apikey); throws readable errors.
 async function api(path, opts){
   opts = opts || {};
@@ -202,9 +208,22 @@ async function routeIn(){
   try { PROFILE = await fetchProfile(); }
   catch(err){ console.error(err); return fail("Couldn't load your profile from the Data API:\n" + (err && err.message || err)
      + "\n\n(Most often the token step or RLS — confirm the artist's user_id is linked to their row.)"); }
-  if (!PROFILE) return fail("You're signed in, but no artist profile is linked to this login yet.\n\n"
-     + "(Ask Dank Omphalos to confirm your invite — the email on file must match this account.)");
+  if (!PROFILE) return fail(await notLinkedMsg());
   if (!PROFILE.onboarded_at) renderOnboarding("welcome"); else renderDashboard();
+}
+
+// On "not linked", show the exact identity RLS sees + a copy-paste SQL fix.
+async function notLinkedMsg(){
+  let id = "?", email = "?", sub = "?";
+  try { const s = await authClient.getSession(); const u = ((s && (s.data||s)) || {}).user || {}; id = u.id||"?"; email = u.email||"?"; } catch(_){}
+  try { sub = jwtPayload(await getToken()).sub || "?"; } catch(_){}
+  return "You're signed in, but no artist row is linked to this login yet.\n\n"
+       + "Signed in as:\n  email:           " + email + "\n  session user id: " + id
+       + "\n  JWT sub:         " + sub + "   <- RLS matches this against artists.user_id\n\n"
+       + "Fix in Neon (links your row to THIS login exactly):\n"
+       + "  update artists set user_id = '" + sub + "'\n"
+       + "  where lower(email) = lower('" + email + "');\n\n"
+       + "If that says \"UPDATE 0\", no artist row has this email - fix the row's email instead.";
 }
 
 // The fields an artist controls — each can be shown on the public gallery or kept private.
