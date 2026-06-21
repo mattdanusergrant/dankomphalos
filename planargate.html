@@ -212,18 +212,20 @@ async function routeIn(){
   if (!PROFILE.onboarded_at) renderOnboarding("welcome"); else renderDashboard();
 }
 
-// On "not linked", show the exact identity RLS sees + a copy-paste SQL fix.
+// On "not linked", show the identity RLS sees + probe what the SERVER sees + a SQL fix.
 async function notLinkedMsg(){
   let id = "?", email = "?", sub = "?";
   try { const s = await authClient.getSession(); const u = ((s && (s.data||s)) || {}).user || {}; id = u.id||"?"; email = u.email||"?"; } catch(_){}
   try { sub = jwtPayload(await getToken()).sub || "?"; } catch(_){}
+  let server;
+  try { const w = await api("/whoami?select=*"); server = "What the SERVER sees in the Data API request:\n" + JSON.stringify((w && w[0]) || w, null, 2); }
+  catch(e){ server = "whoami probe unavailable (" + (e && e.message || e) + ").\nCreate the whoami view in Neon to enable it."; }
   return "You're signed in, but no artist row is linked to this login yet.\n\n"
-       + "Signed in as:\n  email:           " + email + "\n  session user id: " + id
-       + "\n  JWT sub:         " + sub + "   <- RLS matches this against artists.user_id\n\n"
-       + "Fix in Neon (links your row to THIS login exactly):\n"
+       + "This page (your JWT):\n  email: " + email + "\n  sub:   " + sub + "\n\n"
+       + server + "\n\n"
+       + "Fix (links your row to THIS login):\n"
        + "  update artists set user_id = '" + sub + "'\n"
-       + "  where lower(email) = lower('" + email + "');\n\n"
-       + "If that says \"UPDATE 0\", no artist row has this email - fix the row's email instead.";
+       + "  where lower(email) = lower('" + email + "');";
 }
 
 // The fields an artist controls — each can be shown on the public gallery or kept private.
