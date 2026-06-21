@@ -86,8 +86,8 @@ const app = document.getElementById("app");
 const signoutBtn = document.getElementById("signout");
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num = v => Number(v)||0;
-const money = n => "£"+Math.round(num(n)).toLocaleString("en-GB");
-const fmtDate = d => d ? new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}) : "—";
+const money = n => "$"+Math.round(num(n)).toLocaleString("en-US");
+const fmtDate = d => d ? new Date(d).toLocaleDateString("en-US",{day:"numeric",month:"short",year:"numeric"}) : "—";
 const cap = s => (s||"").charAt(0).toUpperCase()+(s||"").slice(1);
 const fail = (msg) => { signoutBtn.style.display="none"; app.innerHTML =
   `<div class="wrap" style="padding-top:40px"><h2 style="font-family:var(--serif);font-weight:500">This needs a tweak</h2>

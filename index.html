@@ -231,31 +231,31 @@ const DATA = {
   ],
   pieces: [
     { id:"p1", title:"Gilded Heron",       artist:"vela",  type:"alter",    card:"alter of a Crane archetype card",
-      medium:"Oil & gold leaf on card", year:2026, price:"£640",  status:"available",
+      medium:"Oil & gold leaf on card", year:2026, price:"$640",  status:"available",
       dateAdded:"2026-03-12", advance:180,
       blurb:"A full-border extension in oil, with hand-applied gold leaf in the negative space. One of a kind." },
     { id:"p2", title:"Wolf at the Threshold", artist:"koa", type:"alter",   card:"alter of a Direwolf card",
-      medium:"Ink & gouache on card", year:2026, price:"£420", status:"available",
+      medium:"Ink & gouache on card", year:2026, price:"$420", status:"available",
       dateAdded:"2026-04-02", advance:120,
       blurb:"Linework spills past the frame; the wolf steps out of its own card." },
     { id:"p3", title:"Marigold Study",     artist:"renza", type:"painting", card:null,
-      medium:"Acrylic on panel, 24×30cm", year:2025, price:"£1,150", status:"available",
+      medium:"Acrylic on panel, 24×30cm", year:2025, price:"$1,150", status:"available",
       dateAdded:"2026-02-20", advance:300,
       blurb:"An original panel — the larger sibling of Renza's card work." },
     { id:"p4", title:"Tide Serpent",       artist:"koa",   type:"alter",    card:"alter of a Sea Serpent card",
-      medium:"Ink & gouache on card", year:2025, price:"£480", status:"reserved",
+      medium:"Ink & gouache on card", year:2025, price:"$480", status:"reserved",
       dateAdded:"2026-01-15", advance:140,
       blurb:"A serpent coiling out of the sea and out of its frame — deep blues and a single bright scale." },
     { id:"p5", title:"Quiet Empress",      artist:"vela",  type:"alter",    card:"alter of a Queen archetype card",
-      medium:"Oil on card", year:2025, price:"£720", status:"sold",
+      medium:"Oil on card", year:2025, price:"$720", status:"sold",
       dateAdded:"2025-11-03", advance:200,
       blurb:"Sold. Shown here as part of Vela's catalogue." },
     { id:"p6", title:"Pattern Saint",      artist:"renza", type:"alter",    card:"alter of an Angel card",
-      medium:"Acrylic & gold pen on card", year:2026, price:"£560", status:"available",
+      medium:"Acrylic & gold pen on card", year:2026, price:"$560", status:"available",
       dateAdded:"2026-05-18", advance:160,
       blurb:"Heavy texture and repeating motif — almost a textile on cardstock." },
     { id:"p7", title:"Hollow Lantern",     artist:"koa",   type:"painting", card:null,
-      medium:"Gouache on board, 20×20cm", year:2026, price:"£780", status:"available",
+      medium:"Gouache on board, 20×20cm", year:2026, price:"$780", status:"available",
       dateAdded:"2026-03-30", advance:220,
       blurb:"A small original. Folklore creature, lantern light, a lot of dark." },
   ],
@@ -291,9 +291,9 @@ const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
 
 // --- Artist-portal money/date helpers (demo) ---
 const num = s => Number(String(s).replace(/[^0-9.]/g,'')) || 0;
-const money = n => '£'+Math.round(n).toLocaleString('en-GB');
+const money = n => '$'+Math.round(n).toLocaleString('en-US');
 const daysHeld = d => Math.max(0, Math.round((Date.now()-new Date(d))/8.64e7));
-const fmtDate = d => new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+const fmtDate = d => new Date(d).toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
 const ARTIST_SHARE = 0.88;                                   // artist's share of retail (demo figure)
 const owedOf = p => Math.max(0, Math.round(num(p.price)*ARTIST_SHARE) - (p.advance||0)); // still owed if held piece sells
 
