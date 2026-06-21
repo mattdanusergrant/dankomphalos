@@ -35,6 +35,14 @@
   .btn.ghost{background:transparent;color:var(--brass)}
   input[type=email]{width:100%;padding:13px 14px;margin:0 0 12px;background:var(--paper);border:1px solid var(--line);
        border-radius:3px;color:var(--ink);font-family:var(--sans);font-size:16px}
+  .fld{margin:0 0 18px}
+  .fld-top{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 6px;gap:12px}
+  .fld-top label{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .fld .vis{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
+  .fld .vis input{accent-color:var(--brass)}
+  .fld input[type=text],.fld textarea{width:100%;padding:12px 14px;background:var(--paper);border:1px solid var(--line);
+       border-radius:3px;color:var(--ink);font-family:var(--sans);font-size:16px}
+  .fld textarea{min-height:92px;resize:vertical;line-height:1.5}
   .ok{color:var(--good)}
   .err{color:#E8909C;background:rgba(138,36,51,.14);border:1px solid var(--oxblood);border-radius:4px;padding:14px 16px;white-space:pre-wrap;font-size:13px;font-family:ui-monospace,monospace}
   .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:26px 0 32px}
@@ -61,7 +69,7 @@
 
 <script type="module">
 /* ===========================================================================
-   Artist Portal — Neon Auth (Better Auth, magic link) + Neon Data API.
+   Artist Portal — Neon Auth (Better Auth, email + password) + Neon Data API.
    Standalone on purpose: separate from the marketing index.html so untested
    auth can never break the live gallery. Errors render on-page for debugging.
 
@@ -86,6 +94,7 @@ const fail = (msg) => { signoutBtn.style.display="none"; app.innerHTML =
    <p class="lead">Paste this to your developer and it'll be a quick fix:</p><div class="err">${esc(msg)}</div></div>`; };
 
 let authClient = null;
+let PROFILE = null;
 async function loadAuth(){
   const core = await import("https://esm.sh/better-auth/client");
   authClient = core.createAuthClient({ baseURL: CONFIG.authUrl });
@@ -107,13 +116,42 @@ async function getToken(){
   return t;
 }
 
-async function fetchPieces(){
+// One door to the Data API. Adds the JWT (+ optional apikey); throws readable errors.
+async function api(path, opts){
+  opts = opts || {};
   const token = await getToken();
-  const headers = { "Authorization": "Bearer " + token };
+  const headers = Object.assign({ "Authorization": "Bearer " + token }, opts.headers || {});
   if (CONFIG.publishableKey) headers["apikey"] = CONFIG.publishableKey;
-  const res = await fetch(CONFIG.dataApiUrl + "/artist_pieces?select=*", { headers });
-  if (!res.ok) throw new Error("Data API " + res.status + ": " + (await res.text()).slice(0,400));
-  return res.json();
+  if (opts.body && !headers["Content-Type"]) headers["Content-Type"] = "application/json";
+  const res = await fetch(CONFIG.dataApiUrl + path, Object.assign({}, opts, { headers }));
+  const text = await res.text();
+  if (!res.ok) throw new Error("Data API " + res.status + ": " + text.slice(0,400));
+  return text ? JSON.parse(text) : null;
+}
+
+// The logged-in artist's own row (RLS returns only theirs). null if not linked yet.
+async function fetchProfile(){
+  const rows = await api("/artists?select=*");
+  if (!Array.isArray(rows)) throw new Error("Profile call returned an unexpected shape:\n" + JSON.stringify(rows).slice(0,300));
+  return rows[0] || null;
+}
+
+async function fetchPieces(){
+  return api("/artist_pieces?select=*");
+}
+
+// Save the editable profile fields (PATCH the artist's own row; RLS + column grants
+// keep them out of share/payout). Returns the updated row.
+async function saveProfile(body){
+  if (!PROFILE || !PROFILE.id) throw new Error("No linked artist profile to save to.");
+  const rows = await api("/artists?id=eq." + encodeURIComponent(PROFILE.id), {
+    method: "PATCH",
+    headers: { "Prefer": "return=representation" },
+    body: JSON.stringify(body)
+  });
+  const row = Array.isArray(rows) ? rows[0] : rows;
+  if (row) PROFILE = row;
+  return PROFILE;
 }
 
 function renderLogin(mode){
@@ -154,10 +192,86 @@ function renderLogin(mode){
 async function afterAuth(){
   let s; try { s = await authClient.getSession(); } catch(e){ return fail("getSession failed:\n"+(e&&e.message||e)); }
   const d = s && (s.data || s); const user = d && d.user;
-  if (user) renderDashboard(user); else renderLogin("in");
+  if (user) routeIn(); else renderLogin("in");
 }
 
-async function renderDashboard(user){
+// Signed in: load the profile, then send first-timers through setup, others to the dashboard.
+async function routeIn(){
+  signoutBtn.style.display = "";
+  app.innerHTML = `<div class="wrap"><p class="lead" style="padding-top:40px">Loading your account…</p></div>`;
+  try { PROFILE = await fetchProfile(); }
+  catch(err){ console.error(err); return fail("Couldn't load your profile from the Data API:\n" + (err && err.message || err)
+     + "\n\n(Most often the token step or RLS — confirm the artist's user_id is linked to their row.)"); }
+  if (!PROFILE) return fail("You're signed in, but no artist profile is linked to this login yet.\n\n"
+     + "(Ask Dank Omphalos to confirm your invite — the email on file must match this account.)");
+  if (!PROFILE.onboarded_at) renderOnboarding("welcome"); else renderDashboard();
+}
+
+// The fields an artist controls — each can be shown on the public gallery or kept private.
+const PROFILE_FIELDS = [
+  { key:"name",      label:"Display name", type:"text",     ph:"The name you sign your work with" },
+  { key:"location",  label:"Location",     type:"text",     ph:"City, Country" },
+  { key:"instagram", label:"Instagram",    type:"text",     ph:"https://instagram.com/yourhandle" },
+  { key:"website",   label:"Website",      type:"text",     ph:"https://…" },
+  { key:"bio",       label:"Short bio",    type:"textarea", ph:"A line or two about you and your work" }
+];
+
+function renderOnboarding(mode){
+  signoutBtn.style.display = "";
+  const isWelcome = mode === "welcome";
+  const vis = (PROFILE && PROFILE.visibility) || {};
+  const val = k => (PROFILE && PROFILE[k] != null) ? PROFILE[k] : "";
+  // default new artists to sharing; respect saved choices on edit
+  const shown = k => isWelcome ? (vis[k] !== false) : (vis[k] === true);
+
+  const fields = PROFILE_FIELDS.map(f=>{
+    const input = f.type === "textarea"
+      ? `<textarea id="f_${f.key}" placeholder="${esc(f.ph)}">${esc(val(f.key))}</textarea>`
+      : `<input type="text" id="f_${f.key}" value="${esc(val(f.key))}" placeholder="${esc(f.ph)}" />`;
+    return `<div class="fld">
+      <div class="fld-top">
+        <label for="f_${f.key}">${esc(f.label)}</label>
+        <label class="vis"><input type="checkbox" id="v_${f.key}" ${shown(f.key)?"checked":""}/> Show on gallery</label>
+      </div>${input}</div>`;
+  }).join("");
+
+  app.innerHTML = `<section class="block"><div class="wrap" style="max-width:560px">
+    <div class="portal-head"><h2 class="pg-title">${isWelcome?"Welcome":"Edit profile"}</h2>
+      <p class="pg-sub">${isWelcome?"Set up your profile":"Your public details"}</p></div>
+    <p class="lead">${isWelcome
+      ? "Tell collectors who's behind the work. Tick <em>Show on gallery</em> for anything you'd like public on Dank Omphalos — untick to keep it to your portal only. You can change any of this later."
+      : "Update your details and choose what's shown on the public gallery. Your stock and payout figures are never public."}</p>
+    <form id="setup">${fields}
+      <button class="btn" type="submit">${isWelcome?"Save & enter":"Save changes"}</button>
+      ${isWelcome?"":`<a href="#" id="cancel" class="btn ghost" style="margin-left:10px">Cancel</a>`}
+    </form>
+    <div id="msg" style="margin-top:16px"></div>
+  </div></section>`;
+
+  if (!isWelcome) document.getElementById("cancel").addEventListener("click",(e)=>{ e.preventDefault(); renderDashboard(); });
+  document.getElementById("setup").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const btn = e.target.querySelector("button[type=submit]"); const orig = btn.textContent;
+    btn.textContent = "…"; btn.disabled = true;
+    const msg = document.getElementById("msg");
+    const body = {}, visibility = {};
+    PROFILE_FIELDS.forEach(f=>{
+      const el = document.getElementById("f_"+f.key);
+      let v = el ? el.value.trim() : "";
+      body[f.key] = v === "" ? null : v;
+      visibility[f.key] = document.getElementById("v_"+f.key).checked;
+    });
+    body.visibility = visibility;
+    if (isWelcome) body.onboarded_at = new Date().toISOString();
+    try {
+      await saveProfile(body);
+      renderDashboard();
+    } catch(err){ console.error(err); btn.textContent = orig; btn.disabled = false;
+      msg.innerHTML = `<div class="err">${esc(err && (err.message||err) )}\n\n(If this mentions permission/column, the Data API column grants in schema.sql may need a run.)</div>`; }
+  });
+}
+
+async function renderDashboard(){
   signoutBtn.style.display = "";
   app.innerHTML = `<div class="wrap"><p class="lead" style="padding-top:40px">Loading your account…</p></div>`;
   let rows;
@@ -171,7 +285,7 @@ async function renderDashboard(user){
   const totRetail = held.reduce((s,r)=>s+num(r.list_price),0);
   const totAdvance = held.reduce((s,r)=>s+num(r.advance),0);
   const cashOut = held.reduce((s,r)=>s+num(r.owed_on_sale),0);
-  const who = esc((user && (user.name || user.email)) || "Your account");
+  const who = esc((PROFILE && PROFILE.name) || "Your account");
 
   const heldRows = held.map(r=>`<tr>
       <td>${esc(r.title)}<br><span class="sub">${r.kind==="alter"?"Alter":"Original"}</span></td>
@@ -180,7 +294,9 @@ async function renderDashboard(user){
       <td class="muted">${money(r.advance)}</td><td class="owed">${money(r.owed_on_sale)}</td></tr>`).join("");
 
   app.innerHTML = `<div class="wrap">
-    <div class="portal-head"><h2>${who} — your account</h2></div>
+    <div class="portal-head" style="display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+      <h2>${who} — your account</h2>
+      <a href="#" id="editprofile" class="muted" style="font-size:13px;white-space:nowrap">Edit profile</a></div>
     <p class="lead">You were paid an advance up front on each piece. When one sells you receive the rest — the lion's share of retail. No clock, no auction: your work waits for the right buyer. Want your money sooner? Ask us about a cash-out anytime.</p>
     <div class="summary">
       <div class="stat"><p class="n">${held.length}</p><p class="l">Pieces held</p></div>
@@ -195,6 +311,8 @@ async function renderDashboard(user){
        ${settled.map(r=>`<tr><td>${esc(r.title)}</td><td>${fmtDate(r.date_added)}</td><td>${money(r.list_price)}</td><td class="owed">${money(r.artist_share_value)}</td></tr>`).join("")}</table>` : "" }
     <p class="muted" style="font-size:12px;margin-top:24px">Live from your Neon account · figures per your agreement.</p>
   </div>`;
+  const ep = document.getElementById("editprofile");
+  if (ep) ep.addEventListener("click",(e)=>{ e.preventDefault(); renderOnboarding("edit"); });
 }
 
 signoutBtn.addEventListener("click", async (e)=>{ e.preventDefault(); try{ await authClient.signOut(); }catch(_){ } renderLogin("in"); });
@@ -208,7 +326,7 @@ async function init(){
   catch(e){ console.error(e); return fail("auth.getSession() failed:\n" + (e && e.message || e)); }
   const d = session && (session.data || session);
   const user = d && d.user;
-  if (user) renderDashboard(user); else renderLogin("in");
+  if (user) routeIn(); else renderLogin("in");
 }
 init();
 </script>
