@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Dank Omphalos Arthouse — Artist Portal</title>
+<title>Planar Gate — Dank Omphalos Arthouse</title>
 <meta name="robots" content="noindex" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:wght@400;500;600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
@@ -28,6 +28,8 @@
   .lead{max-width:640px;color:var(--muted);margin:0 0 24px}
   .portal-head{padding-top:40px;margin:0 0 4px}
   .portal-head h2{font-family:var(--serif);font-weight:500;font-size:30px;margin:0}
+  .portal-head h2.pg-title{font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,50px);letter-spacing:.05em;text-transform:uppercase;line-height:1.02}
+  .pg-sub{font-family:var(--display);font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--brass);margin:9px 0 0}
   .btn{display:inline-block;font-size:14px;letter-spacing:.05em;text-decoration:none;font-weight:500;padding:13px 22px;border-radius:2px;
        border:1px solid var(--brass);background:var(--brass);color:#1A1206;cursor:pointer;font-family:var(--sans)}
   .btn.ghost{background:transparent;color:var(--brass)}
@@ -55,7 +57,7 @@
   <a class="btn ghost" id="signout" href="#" style="display:none">Sign out</a>
 </div></header>
 <main id="app"><div class="wrap"><p class="lead" style="padding-top:40px">Loading…</p></div></main>
-<footer><div class="wrap">Artist Portal · Dank Omphalos Arthouse</div></footer>
+<footer><div class="wrap">Planar Gate · Dank Omphalos Arthouse</div></footer>
 
 <script type="module">
 /* ===========================================================================
@@ -118,7 +120,7 @@ function renderLogin(mode){
   signoutBtn.style.display = "none";
   const isUp = mode === "up";
   app.innerHTML = `<section class="block"><div class="wrap" style="max-width:440px">
-    <div class="portal-head"><h2>Artist Portal</h2></div>
+    <div class="portal-head"><h2 class="pg-title">Planar Gate</h2><p class="pg-sub">Artist Portal</p></div>
     <p class="lead">See your stock with Dank Omphalos — what's held for you, what you're owed, and how long each piece has been here.</p>
     <p class="muted" style="font-size:13px;margin:-12px 0 18px">Invite-only — use the email Dank Omphalos has on file for you.</p>
     <form id="login">
